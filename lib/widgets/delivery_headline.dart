@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:vinhome_user/common/color.dart';
 
 import '../models/response/order_history_detail.dart';
@@ -39,20 +40,15 @@ class DeliveryHeadline extends StatelessWidget {
                   Text.rich(
                     TextSpan(
                       children: [
-                        const TextSpan(
-                            text: 'Đơn hàng sẽ được giao vào ',
-                            style: TextStyle(
-                                color: Color.fromRGBO(255, 170, 76, 1),
-                                fontWeight: FontWeight.w700)),
                         TextSpan(
-                          text:
-                              '${orderHistoryDetail.modeId == '1' ? dateFormat.format(orderHistoryDetail.time.add(const Duration(minutes: 20))) : "\n" + date.format(orderHistoryDetail.time)} - ${dateFormat.format(orderHistoryDetail.time.add(const Duration(minutes: 30)))}',
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: primary,
-                            decoration: TextDecoration.underline,
-                          ),
-                        ),
+                            text: 'Đơn hàng sẽ được giao vào ',
+                            style: Get.textTheme.titleSmall?.copyWith(
+                                color: Color.fromRGBO(255, 170, 76, 1))),
+                        TextSpan(
+                            text:
+                                '${orderHistoryDetail.modeId == '1' ? dateFormat.format(orderHistoryDetail.time.add(const Duration(minutes: 20))) : "\n" + date.format(orderHistoryDetail.time)} - ${dateFormat.format(orderHistoryDetail.time.add(const Duration(minutes: 30)))}',
+                            style: Get.textTheme.titleSmall?.copyWith(
+                                color: Color.fromRGBO(255, 170, 76, 1))),
                       ],
                     ),
                     maxLines: 2,

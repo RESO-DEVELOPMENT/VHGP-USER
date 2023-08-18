@@ -34,10 +34,6 @@ class _ProductCategoryScreenState extends State<ProductCategoryScreen> {
         title: GetBuilder<ProductController>(
           builder: (controller) => Text(
             productController.titleScreen,
-            style: const TextStyle(
-              color: black,
-              fontWeight: FontWeight.bold,
-            ),
           ),
         ),
         centerTitle: false,
@@ -76,7 +72,7 @@ class _ProductCategoryScreenState extends State<ProductCategoryScreen> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: SizedBox(
-        height: 50,
+        height: 36,
         width: MediaQuery.of(theme).size.width,
         child: ListView.builder(
           physics: const ClampingScrollPhysics(),
@@ -91,7 +87,7 @@ class _ProductCategoryScreenState extends State<ProductCategoryScreen> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: Container(
-                  width: MediaQuery.of(context).size.width / 2.5,
+                  width: MediaQuery.of(context).size.width / 2.6,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(color: Colors.grey)),

@@ -68,9 +68,7 @@ class DealsListButtonScreen extends StatelessWidget {
                                                 2.1,
                                         child: Text(
                                           listProducts[index].name,
-                                          style: const TextStyle(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w600),
+                                          style: Get.textTheme.bodyMedium,
                                           overflow: TextOverflow.clip,
                                         ),
                                       ),
@@ -78,9 +76,7 @@ class DealsListButtonScreen extends StatelessWidget {
                                     Text(
                                       viCurrency.format(
                                           listProducts[index].pricePerPack),
-                                      style: const TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w600),
+                                      style: Get.textTheme.bodyLarge,
                                       overflow: TextOverflow.clip,
                                     ),
                                   ],
@@ -92,22 +88,19 @@ class DealsListButtonScreen extends StatelessWidget {
                                     children: [
                                       Text(
                                         listProducts[index].storeName,
-                                        style: const TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w500),
+                                        style: Get.textTheme.bodyMedium,
                                         overflow: TextOverflow.clip,
                                       ),
                                       Text(
                                         listProducts[index].packDes,
-                                        style: const TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w500),
+                                        style: Get.textTheme.bodyMedium,
                                         overflow: TextOverflow.clip,
                                       ),
                                     ],
                                   ),
                                 SizedBox(
-                                    width: MediaQuery.of(context).size.width * 0.33,
+                                    width: MediaQuery.of(context).size.width *
+                                        0.33,
                                     child: AddProduct(
                                       product: listProducts[index],
                                       isCartScreen: false,

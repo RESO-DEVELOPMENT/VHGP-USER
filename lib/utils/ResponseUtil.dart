@@ -14,7 +14,7 @@ class ResponseUtil extends GetxController {
   }
 
   static Future<ResponseModel> getMapping(
-      {required String path, required Map<String, String> queryParams}) async {
+      {required String path, required Map<String, dynamic> queryParams}) async {
     try {
       isLoading(true);
       final response = await http

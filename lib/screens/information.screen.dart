@@ -42,10 +42,6 @@ class _InformationScreenState extends State<InformationScreen> {
       appBar: AppBar(
           title: const Text(
         'Thông tin cá nhân',
-        style: TextStyle(
-          color: black,
-          fontWeight: FontWeight.bold,
-        ),
       )),
       body: GetBuilder<UserController>(
         builder: (controller) => SingleChildScrollView(

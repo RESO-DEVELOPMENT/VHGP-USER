@@ -1,0 +1,118 @@
+{
+  "project_info": {
+    "project_number": "933202759364",
+    "project_id": "vhgp-9b167",
+    "storage_bucket": "vhgp-9b167.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:933202759364:android:836cbc9b9db46ecf9ec391",
+        "android_client_info": {
+          "package_name": "com.example.store_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "933202759364-o5ml8smpis57cq41mesdl4p6jcipjeq4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCerZsxXfs8Ol5jPn5AAY9Mu58SIxMlF-I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "933202759364-fahu2jvf52cpjno6luk82vtpl45d9mpo.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "933202759364-n2b2bpo1bkjsfpg8f3e4k2j1m53p7kpj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.vhShipperApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:933202759364:android:45e42958e81974699ec391",
+        "android_client_info": {
+          "package_name": "com.example.vh_shipper_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "933202759364-o5ml8smpis57cq41mesdl4p6jcipjeq4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCerZsxXfs8Ol5jPn5AAY9Mu58SIxMlF-I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "933202759364-fahu2jvf52cpjno6luk82vtpl45d9mpo.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "933202759364-n2b2bpo1bkjsfpg8f3e4k2j1m53p7kpj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.vhShipperApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:933202759364:android:45e38d509e8ccff59ec391",
+        "android_client_info": {
+          "package_name": "com.vhgp.user"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "933202759364-o5ml8smpis57cq41mesdl4p6jcipjeq4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCerZsxXfs8Ol5jPn5AAY9Mu58SIxMlF-I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "933202759364-fahu2jvf52cpjno6luk82vtpl45d9mpo.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "933202759364-n2b2bpo1bkjsfpg8f3e4k2j1m53p7kpj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.vhShipperApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -42,10 +42,6 @@ class _InformationScreenState extends State<ChangePasswordScreen> {
       appBar: AppBar(
           title: const Text(
         'Đổi mật khẩu',
-        style: TextStyle(
-          color: black,
-          fontWeight: FontWeight.bold,
-        ),
       )),
       body: GetBuilder<UserController>(
         builder: (controller) => SingleChildScrollView(
@@ -59,8 +55,6 @@ class _InformationScreenState extends State<ChangePasswordScreen> {
                   children: [
                     const Text(
                       "Mật khẩu cũ",
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(
                       height: 8,
@@ -96,8 +90,6 @@ class _InformationScreenState extends State<ChangePasswordScreen> {
                   children: [
                     const Text(
                       "Mật khẩu mới",
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(
                       height: 8,
@@ -128,8 +120,6 @@ class _InformationScreenState extends State<ChangePasswordScreen> {
                   children: [
                     const Text(
                       "Xác nhận mật khẩu",
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(
                       height: 8,

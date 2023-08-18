@@ -24,12 +24,12 @@ class TabTitleUnCount extends StatelessWidget {
           Expanded(
             child: Text(
               title!,
-              style: Theme.of(context).textTheme.headline5,
+              style: Theme.of(context).textTheme.titleMedium,
             ),
           ),
           if (seeAll != null)
             TextButton(
-              onPressed: seeAll ,
+              onPressed: seeAll,
               child: Text(
                 actionText!,
                 style: const TextStyle(fontSize: 14, color: primary),

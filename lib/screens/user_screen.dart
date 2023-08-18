@@ -42,9 +42,9 @@ class _UserScreenState extends State<UserScreen> {
       appBar: AppBar(
         elevation: 0,
         automaticallyImplyLeading: false,
-        title: const Text(
+        title: Text(
           'Thông tin',
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          style: Theme.of(context).textTheme.titleLarge,
         ),
       ),
       body: GetBuilder<UserController>(
@@ -62,18 +62,10 @@ class _UserScreenState extends State<UserScreen> {
                 SizedBox(
                   height: getProportionateScreenHeight(8.0),
                 ),
-                Text(
-                  controller.user.name,
-                  style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                        fontWeight: FontWeight.w700,
-                      ),
-                ),
-                Text(
-                  controller.user.id,
-                  style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                        color: kTextColorAccent,
-                      ),
-                ),
+                Text(controller.user.name,
+                    style: Theme.of(context).textTheme.titleLarge),
+                Text(controller.user.id,
+                    style: Theme.of(context).textTheme.titleMedium),
                 Divider(
                   height: getProportionateScreenHeight(32.0),
                 ),
@@ -100,9 +92,6 @@ class _UserScreenState extends State<UserScreen> {
                   color: kAccentTosca,
                   title: 'Địa chỉ',
                   tapHandler: () => Get.toNamed(Routes.address),
-                ),
-                SizedBox(
-                  height: getProportionateScreenHeight(8.0),
                 ),
                 SizedBox(
                   height: getProportionateScreenHeight(8.0),
@@ -186,10 +175,7 @@ class ProfileCard extends StatelessWidget {
             Expanded(
               child: Text(
                 title!,
-                style: Theme.of(context)
-                    .textTheme
-                    .headline4!
-                    .copyWith(fontWeight: FontWeight.w700),
+                style: Theme.of(context).textTheme.titleMedium,
               ),
             ),
             Icon(Icons.arrow_forward_ios_rounded),

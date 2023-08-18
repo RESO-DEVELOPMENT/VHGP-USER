@@ -14,21 +14,21 @@ class AddProduct extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String productId = isCartScreen ? product.productId : product.id;
-    return Card(
-      elevation: 5,
-      child: SizedBox(
-        height: 35,
-        // width: 120,
-        child: GetBuilder<CartController>(
-          builder: (controller) => controller.cart.orderDetail
-                      .firstWhere(
-                        (element) => element.productId == productId,
-                        orElse: () => OrderDetail(
-                            productId: 'productId', quantity: '0', price: 1),
-                      )
-                      .quantity !=
-                  '0'
-              ? Row(
+    return SizedBox(
+      height: 36,
+      child: GetBuilder<CartController>(
+        builder: (controller) => controller.cart.orderDetail
+                    .firstWhere(
+                      (element) => element.productId == productId,
+                      orElse: () => OrderDetail(
+                          productId: 'productId', quantity: '0', price: 1),
+                    )
+                    .quantity !=
+                '0'
+            ? Card(
+                margin: EdgeInsets.all(2),
+                elevation: 2,
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -37,7 +37,7 @@ class AddProduct extends StatelessWidget {
                             controller.subtractProduct(product, isCartScreen),
                         icon: const Icon(
                           Icons.remove,
-                          size: 15,
+                          size: 20,
                           color: primary,
                         )),
                     Text(
@@ -46,34 +46,27 @@ class AddProduct extends StatelessWidget {
                               (element) => element.productId == productId,
                             )
                             .quantity,
-                        style: const TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold)),
+                        style: Get.textTheme.bodyLarge),
                     IconButton(
                       onPressed: () {
                         controller.addProduct(product, isCartScreen, context);
                       },
                       icon: const Icon(
                         Icons.add,
-                        size: 15,
+                        size: 20,
                         color: primary,
                       ),
                     ),
                   ],
-                )
-              : ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromRGBO(255, 170, 76, .2),
-                  ),
-                  onPressed: () =>
-                      controller.addProduct(product, isCartScreen, context),
-                  child: const Text(
-                    'Thêm',
-                    style: TextStyle(
-                        color: Color.fromRGBO(255, 170, 76, 1),
-                        fontWeight: FontWeight.bold),
-                  ),
                 ),
-        ),
+              )
+            : ElevatedButton(
+                onPressed: () =>
+                    controller.addProduct(product, isCartScreen, context),
+                child: Text(
+                  'Thêm',
+                ),
+              ),
       ),
     );
   }

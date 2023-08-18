@@ -42,15 +42,10 @@ class StoreScreen extends StatelessWidget {
     }
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           'Chi tiết cửa hàng',
-          style: TextStyle(
-            color: black,
-            fontWeight: FontWeight.bold,
-          ),
+          style: Get.textTheme.titleLarge,
         ),
-        centerTitle: false,
-        backgroundColor: grey,
       ),
       body: SingleChildScrollView(
         physics: const ClampingScrollPhysics(),
@@ -93,12 +88,8 @@ class StoreScreen extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    controller.storeDetail.name,
-                                    style: const TextStyle(
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w700),
-                                  ),
+                                  Text(controller.storeDetail.name,
+                                      style: Get.textTheme.titleMedium),
                                   if (controller.storeDetail.description !=
                                       null)
                                     Text(
@@ -135,7 +126,7 @@ class StoreScreen extends StatelessWidget {
                                             ),
                                           ),
                                           Text(
-                                              'Giờ mở cửa: ${controller.storeDetail.openTime} | Giờ đóng cửa: ${controller.storeDetail.closeTime}'),
+                                              'Giờ hoạt động ${controller.storeDetail.openTime} - ${controller.storeDetail.closeTime}'),
                                         ],
                                       ),
                                     ],

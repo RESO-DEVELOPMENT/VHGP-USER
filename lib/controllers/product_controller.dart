@@ -16,7 +16,7 @@ class ProductController extends GetxController {
   late ProductByCategory productByCategory;
   late List<ListStore> listStore = [];
   var isLoading = false;
-  final List<String> titles = ['Lọc nhanh', 'Sắp xếp theo', 'Danh sách'];
+  final List<String> titles = ['Lọc nhanh', 'Sắp xếp', 'Danh sách'];
 
   final List<String> listFast = ['Khuyến mãi', 'Quán mới mở'];
   final List<String> listFollow = ['Bán chạy nhất', 'A-Z', 'Z-A'];
@@ -64,7 +64,7 @@ class ProductController extends GetxController {
     getProductByCategory(value.id);
   }
 
-  void setTile(String title){
+  void setTile(String title) {
     titleScreen = title;
     update();
   }

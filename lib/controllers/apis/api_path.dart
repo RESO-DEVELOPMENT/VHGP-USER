@@ -12,6 +12,8 @@ class ApiPath {
   static String AREA_BY_ID = "$BASE_URL/api/v1/areas/ByAreaId";
   static String CREATE_ORDER = "$BASE_URL/api/v1/orders";
   static String PRODUCT_BY_CATEGORY = "$BASE_URL/api/v1/menus/";
+  static String ORDER_HISTORY_BY_PHONE =
+      "$BASE_URL/api/v1/order-management/orders/search-phone";
   static String ORDER_HISTORY_DETAIL = "$BASE_URL/api/v1/orders/";
   static String ADDRESS_BUILDING = "$BASE_URL/api/v1/account-building";
   static String LOGIN = "$BASE_URL/api/v1/account-management/accounts/login";

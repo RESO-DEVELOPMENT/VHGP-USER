@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:vinhome_user/controllers/address_controller.dart';
 import 'package:vinhome_user/controllers/home_controller.dart';
@@ -12,6 +14,7 @@ import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 import '../../common/color.dart';
 import '../../utils/screen_utils.dart';
 import '../../widgets/deal_card.dart';
+import '../models/offer.dart';
 import '../widgets/category_tab.dart';
 import '../widgets/delivery.widget.dart';
 
@@ -82,12 +85,12 @@ class _HomeScreenState extends State<HomeScreen> {
                               children: [
                                 Image.asset(
                                   'assets/images/home-removebg.png',
-                                  height: 190,
+                                  height: 160,
                                   width: 150,
                                 ),
                                 SizedBox(
                                   width: ScreenUtils.screenWidth! / 2,
-                                  child: const Column(
+                                  child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -100,12 +103,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                             fontSize: 24),
                                       ),
                                       Text(
-                                        "Dịch vụ tiện ích giao hàng tận nơi cho cư dân",
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                        style:
-                                            TextStyle(color: kTextColorForth),
-                                      ),
+                                          "Dịch vụ tiện ích giao hàng tận nơi cho cư dân",
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall
+                                              ?.copyWith(color: Colors.white)),
                                     ],
                                   ),
                                 )
@@ -128,10 +132,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           padding: const EdgeInsets.only(top: 10.0),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               _buildCategories(context),
                               _buildDealByCategories(),
+                              // _buildOfferCarousel(context),
                               _getStores(context),
                             ],
                           ),
@@ -198,9 +203,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildCategories(BuildContext theme) {
     return Padding(
       padding: EdgeInsets.symmetric(
-          horizontal: MediaQuery.of(context).size.width * 0.028),
+          horizontal: MediaQuery.of(theme).size.width * 0.028),
       child: SizedBox(
-        height: 60,
+        height: 80,
         width: MediaQuery.of(theme).size.width,
         child: ListView.builder(
           physics: const NeverScrollableScrollPhysics(),
@@ -214,62 +219,82 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  Widget _buildOfferCarousel(context) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height * 0.25,
+      child: CarouselSlider.builder(
+        carouselController: controller.carouselController,
+        options: CarouselOptions(
+          autoPlay: true,
+          enlargeCenterPage: true,
+          viewportFraction: 1,
+          aspectRatio: 1,
+          initialPage: 0,
+          autoPlayAnimationDuration: const Duration(milliseconds: 800),
+          // onPageChanged: (index, reason) => controller.changeBanner(index),
+        ),
+        itemCount: controller.activeOffers.length,
+        itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) =>
+            _buildOffer(controller.activeOffers[itemIndex]),
+      ),
+    );
+  }
+
+  Widget _buildOffer(Offer offer) {
+    return Container(
+      width: double.infinity,
+      clipBehavior: Clip.hardEdge,
+      margin: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.grey.shade100,
+      ),
+      child: CachedNetworkImage(
+        width: double.infinity,
+        imageUrl: offer.image,
+        fit: BoxFit.cover,
+      ),
+    );
+  }
+
   Widget _buildCategory(CategoryModel category, index, theme) {
     return ZoomTapAnimation(
       beginDuration: const Duration(milliseconds: 300),
       endDuration: const Duration(milliseconds: 500),
       child: GestureDetector(
         onTap: category.function,
-        child: Container(
-          clipBehavior: Clip.hardEdge,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-          ),
+        child: Card(
+          // decoration: BoxDecoration(
+          //   borderRadius: BorderRadius.circular(10),
+          // ),
           margin: EdgeInsets.only(
               right: controller.categories.length - 1 == index ? 0 : 8),
           child: Stack(
             children: [
               Container(
-                width: MediaQuery.of(context).size.width * 0.3,
-                height: MediaQuery.of(context).size.height * 0.3,
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                      colors: [
-                        Color.fromRGBO(231, 231, 231, 0.078),
-                        Color.fromRGBO(179, 177, 177, 0.075)
-                      ],
-                      begin: FractionalOffset(0.5, 0.0),
-                      end: FractionalOffset(0.0, 0.0),
-                      stops: [0.1, 1.0],
-                      tileMode: TileMode.clamp),
-                ),
+                width: MediaQuery.of(theme).size.width * 0.3,
+                height: MediaQuery.of(theme).size.height * 0.3,
               ),
               Positioned(
                 top: 0,
                 left: 0,
                 right: 0,
                 bottom: 0,
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: Color.fromRGBO(0, 30, 108, .08),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Image.asset(
-                        category.image,
-                        height: MediaQuery.of(context).size.height * 0.045,
-                        fit: BoxFit.cover,
-                      ),
-                      Center(
-                        child: Text(category.name,
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold)),
-                      ),
-                    ],
-                  ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      category.image,
+                      height: MediaQuery.of(theme).size.height * 0.045,
+                      fit: BoxFit.cover,
+                    ),
+                    Center(
+                      child: Text(category.name,
+                          textAlign: TextAlign.center,
+                          style: Theme.of(theme).textTheme.titleMedium),
+                    ),
+                  ],
                 ),
               )
             ],

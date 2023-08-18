@@ -15,7 +15,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  late  SharedPreferences prefs;
+  late SharedPreferences prefs;
   final AuthenticationController authenticationController =
       Get.find<AuthenticationController>();
   final _formKey = GlobalKey<FormState>();
@@ -215,8 +215,9 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget _title() {
     return RichText(
       textAlign: TextAlign.center,
-      text: const TextSpan(
-          text: 'Cộng Đồng ',
+      textDirection: TextDirection.ltr,
+      text: TextSpan(
+          text: 'VHGP',
           style: TextStyle(
               fontFamily: "SF Heavy",
               fontSize: 28,
@@ -224,9 +225,7 @@ class _LoginScreenState extends State<LoginScreen> {
               color: Color(0xffe46b10)),
           children: [
             TextSpan(
-              text: 'Chung Cư ',
-              style: TextStyle(color: Colors.black, fontSize: 30),
-            ),
+                text: '  Tiện tích cư dân', style: Get.textTheme.titleLarge),
           ]),
     );
   }

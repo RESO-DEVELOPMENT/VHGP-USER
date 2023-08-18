@@ -20,16 +20,16 @@ class DeliveryWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        const Text('Giao đến'),
+        // const Text('Giao đến'),
         GestureDetector(
             child: Container(
-              height: isHome ? 45 : 30,
+              height: isHome ? 40 : 40,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8), color: Colors.white),
               width: MediaQuery.of(context).size.width,
               child: Padding(
                 padding: isHome
-                    ? const EdgeInsets.symmetric(vertical: 8.0, horizontal: 15)
+                    ? const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16)
                     : const EdgeInsets.symmetric(horizontal: 0),
                 child: Row(
                   children: [
@@ -49,7 +49,7 @@ class DeliveryWidget extends StatelessWidget {
                     GetBuilder<AddressController>(
                       builder: (controller) => Text(
                         controller.building,
-                        style: const TextStyle(color: Colors.black),
+                        style: Theme.of(context).textTheme.titleMedium,
                       ),
                     ),
                   ],

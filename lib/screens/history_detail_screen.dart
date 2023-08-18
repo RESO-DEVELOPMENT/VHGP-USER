@@ -26,16 +26,11 @@ class _HistoryDetailScreenState extends State<HistoryDetailScreen> {
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Get.offAllNamed(Routes.tabScreen),
+          onPressed: () => Get.back(),
         ),
-        title: const Text(
+        title: Text(
           'Chi tiết đơn hàng',
-          style: TextStyle(
-            color: black,
-            fontWeight: FontWeight.bold,
-          ),
         ),
-        centerTitle: false,
       ),
       body: GetBuilder<HistoryController>(
         builder: (controller) => controller.isLoading
@@ -53,11 +48,14 @@ class _HistoryDetailScreenState extends State<HistoryDetailScreen> {
                           DeliveryHeadline(
                             orderHistoryDetail: controller.orderHistoryDetail,
                           ),
-                          Card(
-                            child: Padding(
-                              padding: const EdgeInsets.all(15.0),
-                              child: orderInformation(
-                                  context, textStyle, controller),
+                          Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: Card(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8),
+                                child: orderInformation(
+                                    context, textStyle, controller),
+                              ),
                             ),
                           ),
                           deliveryTimeLine(textStyle, controller),
@@ -83,13 +81,13 @@ class _HistoryDetailScreenState extends State<HistoryDetailScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Tổng cộng:', style: textStyle),
+                Text('Tổng cộng:', style: Get.textTheme.titleLarge),
                 Text(
                     viCurrency.format(controller.orderHistoryDetail.total +
                         controller.orderHistoryDetail.shipCost),
                     // viCurrency.format(controller.orderHistoryDetail.total +
                     // controller.orderHistoryDetail.shipCost),
-                    style: textStyle)
+                    style: Get.textTheme.titleLarge)
               ],
             )),
       ),
@@ -99,17 +97,18 @@ class _HistoryDetailScreenState extends State<HistoryDetailScreen> {
   Padding payment(
       TextStyle textStyle, BuildContext context, HistoryController controller) {
     return Padding(
-      padding: const EdgeInsets.only(top: 10.0),
+      padding: const EdgeInsets.all(8),
       child: Card(
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          padding: const EdgeInsets.all(8),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                child: Text('Chi tiết thanh toán', style: textStyle),
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: Text('Chi tiết thanh toán',
+                    style: Get.textTheme.titleMedium),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
@@ -123,18 +122,16 @@ class _HistoryDetailScreenState extends State<HistoryDetailScreen> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(right: 10.0),
+                            padding: const EdgeInsets.only(right: 8),
                             child: Image.asset(
                               'assets/images/money.png',
-                              height: 35,
+                              height: 24,
                             ),
                           ),
-                          const Flexible(
+                          Flexible(
                               child: Text(
                             'Tiền mặt',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
+                            style: Get.textTheme.titleSmall,
                           )),
                         ],
                       ),
@@ -159,7 +156,6 @@ class _HistoryDetailScreenState extends State<HistoryDetailScreen> {
                 value: viCurrency.format(
                     controller.orderHistoryDetail.serviceId == '1' ? 10000 : 0),
               ),
-              const DividerApp(),
             ],
           ),
         ),
@@ -175,34 +171,34 @@ class _HistoryDetailScreenState extends State<HistoryDetailScreen> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Column(
+          Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Mã đơn hàng: ', style: textStyle),
+              Text('Mã đơn hàng: ', style: Get.textTheme.titleSmall),
               Text(controller.orderHistoryDetail.id),
             ],
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 15.0),
-            child: Column(
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Ngày đặt hàng', style: textStyle),
+                Text('Ngày đặt hàng: ', style: Get.textTheme.titleSmall),
                 Text(
                   date.format(controller.orderHistoryDetail.time),
                 ),
               ],
             ),
           ),
-          Column(
+          Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Địa chỉ nhận ', style: textStyle),
+              Text('Địa chỉ: ', style: Get.textTheme.titleSmall),
               Text(
-                  'Tòa ${controller.orderHistoryDetail.buildingName} Vinhomes Green Park'),
+                  '${controller.orderHistoryDetail.buildingName} Vinhomes Green Park'),
             ],
           ),
         ],
@@ -212,13 +208,16 @@ class _HistoryDetailScreenState extends State<HistoryDetailScreen> {
 
   Padding deliveryTimeLine(TextStyle textStyle, HistoryController controller) {
     return Padding(
-      padding: const EdgeInsets.only(top: 10.0),
+      padding: const EdgeInsets.all(8),
       child: Card(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Tiến độ', style: textStyle),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text('Tiến độ', style: Get.textTheme.titleMedium),
+            ),
             FixedTimeline.tileBuilder(
               theme: TimelineThemeData(
                 color: const Color.fromRGBO(28, 196, 97, 1),
@@ -255,7 +254,7 @@ class _HistoryDetailScreenState extends State<HistoryDetailScreen> {
                   ),
                 ),
                 contentsBuilder: (context, index) => Padding(
-                  padding: const EdgeInsets.only(left: 15.0),
+                  padding: const EdgeInsets.only(left: 16),
                   child: Opacity(
                     opacity: index <=
                             controller
@@ -270,7 +269,7 @@ class _HistoryDetailScreenState extends State<HistoryDetailScreen> {
                           height: 32,
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(left: 15.0),
+                          padding: const EdgeInsets.only(left: 16),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisSize: MainAxisSize.min,
@@ -278,11 +277,8 @@ class _HistoryDetailScreenState extends State<HistoryDetailScreen> {
                               Flexible(
                                   child: Text(
                                       controller.deliveryTimeLine[index].time)),
-                              Text(
-                                controller.deliveryTimeLine[index].title,
-                                style: const TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold),
-                              ),
+                              Text(controller.deliveryTimeLine[index].title,
+                                  style: Get.textTheme.titleMedium),
                             ],
                           ),
                         ),
@@ -300,10 +296,10 @@ class _HistoryDetailScreenState extends State<HistoryDetailScreen> {
 
   Padding store(HistoryController controller, TextStyle textStyle) {
     return Padding(
-      padding: const EdgeInsets.only(top: 10.0),
+      padding: const EdgeInsets.all(8),
       child: Card(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0),
+          padding: const EdgeInsets.symmetric(horizontal: 8),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -311,7 +307,7 @@ class _HistoryDetailScreenState extends State<HistoryDetailScreen> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
                 child: Text(controller.orderHistoryDetail.storeName,
-                    style: textStyle),
+                    style: Get.textTheme.titleMedium),
               ),
               const DividerApp(),
               orderProductList(controller)
@@ -339,27 +335,15 @@ class _HistoryDetailScreenState extends State<HistoryDetailScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      '${historyController.orderHistoryDetail.listProInMenu[index].quantity}x',
-                      style: const TextStyle(
-                        color: Color.fromRGBO(
-                          24,
-                          144,
-                          255,
-                          1,
-                        ),
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                        '${historyController.orderHistoryDetail.listProInMenu[index].quantity}x',
+                        style: Get.textTheme.titleMedium),
                     Flexible(
                         child: Padding(
                       padding: const EdgeInsets.only(left: 20.0),
                       child: Text(
-                        historyController.orderHistoryDetail
-                            .listProInMenu[index].productName,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                          historyController.orderHistoryDetail
+                              .listProInMenu[index].productName,
+                          style: Get.textTheme.titleSmall),
                     )),
                   ],
                 ),
@@ -393,13 +377,8 @@ class InformationCard extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text('$title:'),
-          Text(
-            value,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          Text('$title', style: Get.textTheme.titleSmall),
+          Text(value, style: Get.textTheme.titleSmall),
         ],
       ),
     );

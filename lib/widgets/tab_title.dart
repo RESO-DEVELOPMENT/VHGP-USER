@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:slide_countdown/slide_countdown.dart';
 import '../utils/screen_utils.dart';
@@ -53,16 +51,15 @@ class _TabTitleState extends State<TabTitle> {
           Expanded(
             child: Text(
               widget.title,
-              style: Theme.of(context).textTheme.headline5,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
           widget.endTime != -1
               ? SlideCountdownSeparated(
                   shouldShowHours: (p0) => true,
-                  textDirection: TextDirection.ltr,
                   duration: countTime,
-                  decoration: const BoxDecoration(
-                    color: Color.fromRGBO(255, 170, 76, 1),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor,
                     borderRadius: BorderRadius.all(Radius.circular(5)),
                   ),
                 )

@@ -45,6 +45,7 @@ class CategoryDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Get.theme.colorScheme.surface,
         title: DeliveryWidget(
           addressController: addressController,
           isHome: false,

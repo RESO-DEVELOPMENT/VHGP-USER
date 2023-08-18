@@ -56,13 +56,8 @@ class _CartScreenState extends State<CartScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Đơn hàng của bạn',
-          style: TextStyle(
-            color: black,
-            fontWeight: FontWeight.bold,
-          ),
+          'Giỏ hàng',
         ),
-        centerTitle: false,
       ),
       body: GetBuilder<CartController>(
         builder: (controller) => Column(
@@ -71,196 +66,143 @@ class _CartScreenState extends State<CartScreen> {
               height: MediaQuery.of(context).size.height / 1.5,
               child: SingleChildScrollView(
                 physics: const ClampingScrollPhysics(),
+                padding: EdgeInsets.all(8),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Padding(
-                      padding: EdgeInsets.only(top: 15.0, left: 15),
-                      child: Text(
-                        'Giao đến',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            color: Color.fromRGBO(0, 0, 0, 0.4),
-                            fontSize: 16),
-                      ),
-                    ),
-                    Card(
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width,
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 15.0),
-                        child: SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 15.0),
-                            child: Column(
+                        padding: EdgeInsets.all(8),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Giao đến',
+                              style: Get.textTheme.titleSmall,
+                            ),
+                            Text(
+                              '${cartController.cart.buildingName}, ${cartController.areaName} Vinhomes GP',
+                              style: Get.textTheme.titleMedium,
+                            ),
+                            Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  '${cartController.cart.buildingName}, ${cartController.areaName} Vinhomes GP',
-                                  style: const TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 4.0),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text('Được giao từ',
-                                          style: TextStyle(
-                                              fontSize: 15,
-                                              color: Colors.grey[600])),
-                                      Text('${cartController.cart.storeName}',
-                                          style: const TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold)),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 4.0),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text('Hình thức giao hàng',
-                                          style: TextStyle(
-                                              fontSize: 15,
-                                              color: Colors.grey[600])),
-                                      Text(deliveryMode,
-                                          style: const TextStyle(
-                                              fontSize: 15,
-                                              color: Color.fromRGBO(
-                                                77,
-                                                184,
-                                                86,
-                                                1,
-                                              ),
-                                              fontWeight: FontWeight.bold)),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 4.0),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text('Thời gian giao dự kiến',
-                                          style: TextStyle(
-                                              fontSize: 15,
-                                              color: Colors.grey[600])),
-                                      homeController.modeId != 1
-                                          ? GetBuilder<CartController>(
-                                              builder: (controller) => Column(
-                                                children: [
-                                                  SizedBox(
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .height *
-                                                            0.05,
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
-                                                            0.45,
-                                                    child: GestureDetector(
-                                                      onTap: () {
-                                                        if (cartController
-                                                            .optionTimeList
-                                                            .isEmpty) {
-                                                          showOptionTimesEmptyAlertDialog(
-                                                              context);
-                                                        } else {
-                                                          cartController
-                                                              .changeOptionTime(
-                                                                  0);
-                                                          showCupertinoModalPopup(
-                                                              context: context,
-                                                              builder: (context) =>
-                                                                  buildTimePickerPicker());
-                                                        }
-                                                      },
-                                                      child: Container(
-                                                        width: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .width /
-                                                            2.5,
-                                                        decoration: BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        8),
-                                                            border: Border.all(
-                                                                color: Colors
-                                                                    .grey)),
-                                                        child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .symmetric(
-                                                                  horizontal:
-                                                                      8.0),
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
-                                                            children: [
-                                                              Text(cartController
-                                                                  .deliveryTime),
-                                                              const Row(
-                                                                children: [
-                                                                  Padding(
-                                                                    padding: EdgeInsets.symmetric(
-                                                                        vertical:
-                                                                            8.0),
-                                                                    child:
-                                                                        VerticalDivider(
-                                                                      color: Colors
-                                                                          .grey,
-                                                                      thickness:
-                                                                          1,
-                                                                    ),
-                                                                  ),
-                                                                  Icon(
-                                                                    Icons
-                                                                        .keyboard_arrow_down,
-                                                                    color: Colors
-                                                                        .grey,
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            )
-                                          : Text(
-                                              '${dateFormat.format(DateTime.now().add(const Duration(minutes: 20)))} - ${dateFormat.format(DateTime.now().add(const Duration(minutes: 30)))}',
-                                              style: const TextStyle(
-                                                  fontSize: 14,
-                                                  color: Colors.black,
-                                                  fontWeight: FontWeight.bold)),
-                                    ],
-                                  ),
-                                ),
+                                Text('Được giao từ',
+                                    style: Get.textTheme.titleSmall),
+                                Text('${cartController.cart.storeName}',
+                                    style: Get.textTheme.titleMedium),
                               ],
                             ),
-                          ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Hình thức giao hàng',
+                                    style: Get.textTheme.titleSmall),
+                                Text(deliveryMode,
+                                    style: Get.textTheme.titleMedium),
+                              ],
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Thời gian giao dự kiến',
+                                    style: Get.textTheme.titleSmall),
+                                homeController.modeId != 1
+                                    ? GetBuilder<CartController>(
+                                        builder: (controller) => Column(
+                                          children: [
+                                            SizedBox(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.05,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.45,
+                                              child: GestureDetector(
+                                                onTap: () {
+                                                  if (cartController
+                                                      .optionTimeList.isEmpty) {
+                                                    showOptionTimesEmptyAlertDialog(
+                                                        context);
+                                                  } else {
+                                                    cartController
+                                                        .changeOptionTime(0);
+                                                    showCupertinoModalPopup(
+                                                        context: context,
+                                                        builder: (context) =>
+                                                            buildTimePickerPicker());
+                                                  }
+                                                },
+                                                child: Container(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      2.5,
+                                                  decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8),
+                                                      border: Border.all(
+                                                          color: Colors.grey)),
+                                                  child: Padding(
+                                                    padding: const EdgeInsets
+                                                            .symmetric(
+                                                        horizontal: 8.0),
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Text(cartController
+                                                            .deliveryTime),
+                                                        const Row(
+                                                          children: [
+                                                            Padding(
+                                                              padding: EdgeInsets
+                                                                  .symmetric(
+                                                                      vertical:
+                                                                          8.0),
+                                                              child:
+                                                                  VerticalDivider(
+                                                                color:
+                                                                    Colors.grey,
+                                                                thickness: 1,
+                                                              ),
+                                                            ),
+                                                            Icon(
+                                                              Icons
+                                                                  .keyboard_arrow_down,
+                                                              color:
+                                                                  Colors.grey,
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    : Text(
+                                        '${dateFormat.format(DateTime.now().add(const Duration(minutes: 20)))} - ${dateFormat.format(DateTime.now().add(const Duration(minutes: 30)))}',
+                                        style: const TextStyle(
+                                            fontSize: 14,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold)),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
                     ),
@@ -281,15 +223,10 @@ class _CartScreenState extends State<CartScreen> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const Text(
-                                'Tiền hàng:',
-                                style: TextStyle(fontSize: 16),
-                              ),
-                              Text(
-                                viCurrency.format(cartController.cart.total),
-                                style: const TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.w600),
-                              ),
+                              Text('Tiền hàng:',
+                                  style: Get.textTheme.titleMedium),
+                              Text(viCurrency.format(cartController.cart.total),
+                                  style: Get.textTheme.titleMedium),
                             ],
                           ),
                           Padding(
@@ -297,35 +234,26 @@ class _CartScreenState extends State<CartScreen> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                const Text(
-                                  'Phí giao hàng:',
-                                  style: TextStyle(fontSize: 16),
-                                ),
+                                Text('Phí giao hàng:',
+                                    style: Get.textTheme.titleMedium),
                                 Text(
-                                  viCurrency.format(
-                                    cartController.deliveryFee,
-                                  ),
-                                  style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600),
-                                ),
+                                    viCurrency.format(
+                                      cartController.deliveryFee,
+                                    ),
+                                    style: Get.textTheme.titleMedium),
                               ],
                             ),
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const Text(
-                                'Phí dịch vụ',
-                                style: TextStyle(fontSize: 16),
-                              ),
+                              Text('Phí dịch vụ',
+                                  style: Get.textTheme.titleMedium),
                               Text(
-                                viCurrency.format(cartController.isCheck
-                                    ? cartController.servicesFee
-                                    : 0),
-                                style: const TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.w600),
-                              ),
+                                  viCurrency.format(cartController.isCheck
+                                      ? cartController.servicesFee
+                                      : 0),
+                                  style: Get.textTheme.titleMedium),
                             ],
                           ),
                         ],
@@ -340,7 +268,7 @@ class _CartScreenState extends State<CartScreen> {
                 child: Align(
                   alignment: FractionalOffset.bottomCenter,
                   child: Padding(
-                    padding: const EdgeInsets.all(15.0),
+                    padding: const EdgeInsets.all(16.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -437,14 +365,9 @@ class _CartScreenState extends State<CartScreen> {
                                             primary,
                                             primary2,
                                           ])),
-                            child: const Text(
-                              'Đặt hàng',
-                              style: TextStyle(
-                                fontSize: 20,
-                                color: Colors.white,
-                                fontFamily: "SF Bold",
-                              ),
-                            ),
+                            child: Text('Đặt hàng',
+                                style: Get.textTheme.titleLarge?.copyWith(
+                                    color: Get.theme.colorScheme.background)),
                           ),
                         ),
                       ],
@@ -465,80 +388,67 @@ class _CartScreenState extends State<CartScreen> {
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemCount: controller.cart.orderDetail.length,
-        itemBuilder: (context, index) => Card(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.07,
-                    width: MediaQuery.of(context).size.height * 0.07,
-                    child: CachedNetworkImage(
-                      imageUrl:
-                          controller.cart.orderDetail[index].imageUrl ?? '',
-                      imageBuilder: (context, imageProvider) => Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          image: DecorationImage(
-                            image: imageProvider,
-                            fit: BoxFit.cover,
-                          ),
+        itemBuilder: (context, index) => Padding(
+          padding: const EdgeInsets.all(8),
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  height: 48,
+                  width: 48,
+                  child: CachedNetworkImage(
+                    imageUrl: controller.cart.orderDetail[index].imageUrl ?? '',
+                    imageBuilder: (context, imageProvider) => Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        image: DecorationImage(
+                          image: imageProvider,
+                          fit: BoxFit.cover,
                         ),
                       ),
                     ),
                   ),
-                  Card(
-                      elevation: 3,
-                      child: SizedBox(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            'x${cartController.cart.orderDetail[index].quantity}',
+                ),
+                Text(
+                  'x${cartController.cart.orderDetail[index].quantity}',
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 4),
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width / 2,
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '${cartController.cart.orderDetail[index].productName}',
+                            style: Get.textTheme.bodyMedium,
+                            overflow: TextOverflow.clip,
                           ),
-                        ),
-                      )),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10.0),
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width / 2.5,
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              '${cartController.cart.orderDetail[index].productName}',
-                              style: const TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.bold),
-                              overflow: TextOverflow.clip,
-                            ),
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.04,
-                              child: TextButton(
-                                onPressed: () {
-                                  cartController.showUpdateQuantity(
-                                      cartController
-                                          .cart.orderDetail[index].productId);
-                                  _showUpdateProduct(context,
-                                      cartController.cart.orderDetail[index]);
-                                },
-                                child: const Text(
-                                  'Chỉnh sửa',
-                                  style: TextStyle(fontSize: 14),
-                                ),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.04,
+                            child: TextButton(
+                              onPressed: () {
+                                cartController.showUpdateQuantity(cartController
+                                    .cart.orderDetail[index].productId);
+                                _showUpdateProduct(context,
+                                    cartController.cart.orderDetail[index]);
+                              },
+                              child: Text(
+                                'Chỉnh sửa',
+                                style: Get.textTheme.bodyMedium,
                               ),
                             ),
-                          ]),
-                    ),
+                          ),
+                        ]),
                   ),
-                  Text(
-                    viCurrency.format(controller.cart.orderDetail[index].price),
-                    style: const TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
+                ),
+                Text(
+                  viCurrency.format(controller.cart.orderDetail[index].price),
+                  style: Get.textTheme.bodyMedium,
+                ),
+              ],
             ),
           ),
         ),
@@ -549,7 +459,7 @@ class _CartScreenState extends State<CartScreen> {
   Card _buildInformation(BuildContext context) {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(8),
         child: SizedBox(
           width: MediaQuery.of(context).size.width,
           child: Column(
@@ -584,83 +494,62 @@ class _CartScreenState extends State<CartScreen> {
 
   GetBuilder _buildeDelivery(BuildContext context) {
     return GetBuilder<CartController>(
-      builder: (controller) => Opacity(
-        opacity: cartController.isCheck ? 1 : 0.6,
+      builder: (controller) => Card(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 5),
-          child: Container(
-            decoration: BoxDecoration(
-              border: Border.all(
-                  color: const Color.fromRGBO(240, 240, 240, 1),
-                  width: 1.0,
-                  style: BorderStyle.solid),
-              borderRadius: BorderRadius.circular(10),
-              color: const Color.fromRGBO(245, 245, 245, 1),
-              boxShadow: const [
-                BoxShadow(color: Color.fromRGBO(245, 245, 245, 1)),
-              ],
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
+          padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Checkbox(
-                        checkColor: Colors.white,
-                        fillColor: MaterialStateProperty.resolveWith(getColor),
-                        value: cartController.isCheck,
-                        onChanged: (bool? value) {
-                          cartController.setCheck();
-                        },
-                      ),
-                      SizedBox(
-                        height: 35,
-                        width: 35,
-                        child: CachedNetworkImage(
-                          imageUrl:
-                              'https://cdn-icons-png.flaticon.com/512/2844/2844235.png',
-                          imageBuilder: (context, imageProvider) => Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              image: DecorationImage(
-                                image: imageProvider,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
+                  Checkbox(
+                    checkColor: Colors.white,
+                    fillColor: MaterialStateProperty.resolveWith(getColor),
+                    value: cartController.isCheck,
+                    onChanged: (bool? value) {
+                      cartController.setCheck();
+                    },
+                  ),
+                  SizedBox(
+                    height: 32,
+                    width: 32,
+                    child: CachedNetworkImage(
+                      imageUrl:
+                          'https://cdn-icons-png.flaticon.com/512/2844/2844235.png',
+                      imageBuilder: (context, imageProvider) => Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          image: DecorationImage(
+                            image: imageProvider,
+                            fit: BoxFit.cover,
                           ),
                         ),
                       ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width / 1.9,
-                        child: const Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Hỏa tốc',
-                              style: TextStyle(fontWeight: FontWeight.w600),
-                            ),
-                            Text(
-                              'Đơn hàng của bạn đang được ưu tiên để tài xế giao sớm nhất.',
-                              style: TextStyle(
-                                  color: Color.fromRGBO(120, 120, 120, 1)),
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
-                  Text(
-                    viCurrency.format(cartController.servicesFee),
-                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width / 2,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Hỏa tốc',
+                          style: Get.textTheme.titleMedium,
+                        ),
+                        Text(
+                            'Đơn hàng của bạn đang được ưu tiên để tài xế giao sớm nhất.',
+                            style: Get.textTheme.bodySmall)
+                      ],
+                    ),
                   ),
                 ],
               ),
-            ),
+              Text(viCurrency.format(cartController.servicesFee),
+                  style: Get.textTheme.titleSmall),
+            ],
           ),
         ),
       ),
@@ -886,41 +775,30 @@ class _CartScreenState extends State<CartScreen> {
               children: [
                 Image.asset("assets/images/successful.gif",
                     width: 300, fit: BoxFit.cover),
-                const Text(
-                  "Đặt hàng thành công",
-                  style: TextStyle(
-                      color: Color.fromRGBO(93, 229, 147, 1),
-                      fontSize: 19,
-                      fontWeight: FontWeight.bold),
-                ),
+                Text("Đặt hàng thành công", style: Get.textTheme.titleMedium),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text(
+                      Text(
                         "Mã đơn hàng của bạn là ",
-                        style: TextStyle(color: Colors.grey, fontSize: 15),
+                        style: Get.textTheme.titleSmall,
                       ),
                       GetBuilder<CartController>(
                         builder: (controller) => Text(
-                          cartController.deliveryCode,
-                          style: const TextStyle(
-                              color: Colors.grey,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold),
-                        ),
+                            cartController.deliveryCode,
+                            style: Get.textTheme.titleSmall),
                       ),
                     ],
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: const Text(
-                    'Bạn có thể dùng nó để theo dõi đơn hàng của mình.',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.grey, fontSize: 15),
-                  ),
+                  child: Text(
+                      'Bạn có thể dùng nó để theo dõi đơn hàng của mình.',
+                      textAlign: TextAlign.center,
+                      style: Get.textTheme.titleSmall),
                 ),
               ],
             ),
@@ -961,14 +839,9 @@ class _CartScreenState extends State<CartScreen> {
                               sucessButtonPrimary,
                               sucessButtonSecondary,
                             ])),
-                    child: const Text(
-                      'Xem đơn hàng',
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                        fontFamily: "SF Bold",
-                      ),
-                    ),
+                    child: Text('Xem đơn hàng',
+                        style: Get.textTheme.titleMedium?.copyWith(
+                            color: Get.theme.colorScheme.background)),
                   ),
                 ),
               ),
@@ -1015,31 +888,24 @@ class _CartScreenState extends State<CartScreen> {
                   children: [
                     Center(
                       child: Text(
-                        "Đơn hàng sẽ được gửi đi trong\n$_start giây...",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700,
-                          color: Color.fromRGBO(82, 182, 91, 1),
-                        ),
-                      ),
+                          "Đơn hàng sẽ được gửi đi trong\n$_start giây...",
+                          textAlign: TextAlign.center,
+                          style: Get.textTheme.titleMedium),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Địa chỉ giao hàng: ",
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w600),
+                          "Giao đến",
+                          style: Get.textTheme.titleSmall,
                         ),
                         Expanded(
                           child: Text(
-                            '${cartController.cart.buildingName}, ${cartController.areaName} Vinhomes GP',
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(fontSize: 16),
-                          ),
+                              '${cartController.cart.buildingName}, ${cartController.areaName} Vinhomes GP',
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: Get.textTheme.titleSmall),
                         ),
                       ],
                     ),
@@ -1050,15 +916,12 @@ class _CartScreenState extends State<CartScreen> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          "Thời gian giao hàng dự kiến: ",
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w600),
-                        ),
+                        Text("Thời gian dự kiến: ",
+                            style: Get.textTheme.titleSmall),
                         Expanded(
                           child: Text(
                             '${cartController.deliveryTime}',
-                            style: TextStyle(fontSize: 16),
+                            style: Get.textTheme.titleSmall,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -1067,16 +930,12 @@ class _CartScreenState extends State<CartScreen> {
                     ),
                     Row(
                       children: [
+                        Text("Tổng tiền đơn hàng: ",
+                            style: Get.textTheme.titleSmall),
                         Text(
-                          "Tổng tiền đơn hàng: ",
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w600),
-                        ),
-                        Text(
-                          viCurrency.format(cartController.cart.total +
-                              cartController.deliveryFee),
-                          style: TextStyle(fontSize: 16),
-                        ),
+                            viCurrency.format(cartController.cart.total +
+                                cartController.deliveryFee),
+                            style: Get.textTheme.titleSmall),
                       ],
                     ),
                   ],
@@ -1089,50 +948,14 @@ class _CartScreenState extends State<CartScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width / 2.8,
-                      child: GestureDetector(
-                        onTap: () {
-                          Get.back();
-                        },
-                        child: Container(
-                          width: double.infinity,
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 15,
-                          ),
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(8)),
-                              boxShadow: <BoxShadow>[
-                                BoxShadow(
-                                    color: Colors.grey.shade200,
-                                    offset: const Offset(2, 4),
-                                    blurRadius: 5,
-                                    spreadRadius: 2)
-                              ],
-                              gradient: const LinearGradient(
-                                  begin: Alignment.centerLeft,
-                                  end: Alignment.centerRight,
-                                  colors: [
-                                    Color.fromRGBO(170, 178, 189, 1),
-                                    Color.fromRGBO(209, 208, 208, 1),
-                                  ])),
-                          child: const Text(
-                            'Trở lại',
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.white,
-                              fontFamily: "SF Bold",
-                            ),
-                          ),
-                        ),
-                      ),
+                    OutlinedButton(
+                      onPressed: () => Get.back(),
+                      child: Text('Trở lại', style: Get.textTheme.titleSmall),
                     ),
                     SizedBox(
                       width: MediaQuery.of(context).size.width / 2.8,
-                      child: GestureDetector(
-                        onTap: () {
+                      child: ElevatedButton(
+                        onPressed: () {
                           Get.back();
                           cartController.submitOrder().then((value) {
                             if (!cartController.isLoading) {
@@ -1144,38 +967,8 @@ class _CartScreenState extends State<CartScreen> {
                             }
                           });
                         },
-                        child: Container(
-                          width: double.infinity,
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 15,
-                          ),
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(8)),
-                              boxShadow: <BoxShadow>[
-                                BoxShadow(
-                                    color: Colors.grey.shade200,
-                                    offset: const Offset(2, 4),
-                                    blurRadius: 5,
-                                    spreadRadius: 2)
-                              ],
-                              gradient: const LinearGradient(
-                                  begin: Alignment.centerLeft,
-                                  end: Alignment.centerRight,
-                                  colors: [
-                                    primary,
-                                    primary2,
-                                  ])),
-                          child: const Text(
-                            'Tiếp tục',
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.white,
-                              fontFamily: "SF Bold",
-                            ),
-                          ),
-                        ),
+                        child:
+                            Text('Tiếp tục', style: Get.textTheme.titleMedium),
                       ),
                     ),
                   ],

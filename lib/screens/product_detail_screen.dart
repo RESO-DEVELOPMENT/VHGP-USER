@@ -19,19 +19,14 @@ class ProductDetailScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           'Chi tiết sản phẩm',
-          style: TextStyle(
-            color: black,
-            fontWeight: FontWeight.bold,
-          ),
         ),
-        centerTitle: false,
       ),
       body: GetBuilder<ProductController>(
         builder: (controller) => controller.isLoading
             ? Container()
             : SingleChildScrollView(
-              physics: ClampingScrollPhysics(),
-              child: Padding(
+                physics: ClampingScrollPhysics(),
+                child: Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -54,35 +49,24 @@ class ProductDetailScreen extends StatelessWidget {
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 5.0),
-                        child: Text(
-                          productController.productResponse.name,
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 18),
-                        ),
+                        child: Text(productController.productResponse.name,
+                            style: Get.textTheme.titleMedium),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 5.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              viCurrency.format(
-                                  productController.productResponse.pricePerPack),
-                              style:
-                                  const TextStyle(fontSize: 24, color: primary),
-                            ),
-                            Text(productController
-                                .productResponse.packDescription),
-                          ],
-                        ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                              viCurrency.format(productController
+                                  .productResponse.pricePerPack),
+                              style: Get.textTheme.titleMedium),
+                          Text(productController
+                              .productResponse.packDescription),
+                        ],
                       ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 5.0),
-                        child: Text(
-                          'GIAO NHANH 30 PHÚT',
-                          style: TextStyle(fontSize: 14, color: Colors.green),
-                        ),
+                      Text(
+                        'GIAO NHANH 30 PHÚT',
+                        style: TextStyle(fontSize: 14, color: Colors.green),
                       ),
                       const Divider(thickness: 0.8),
                       GestureDetector(
@@ -98,8 +82,8 @@ class ProductDetailScreen extends StatelessWidget {
                               child: CachedNetworkImage(
                                 height: 75,
                                 width: 120,
-                                imageUrl:
-                                    productController.productResponse.storeImage,
+                                imageUrl: productController
+                                    .productResponse.storeImage,
                                 imageBuilder: (context, imageProvider) =>
                                     Container(
                                   decoration: BoxDecoration(
@@ -112,24 +96,30 @@ class ProductDetailScreen extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10.0),
-                              child: Text(
-                                  productController.productResponse.storeName,
-                                  style: const TextStyle(
-                                      fontSize: 16, fontWeight: FontWeight.bold)),
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 10.0),
+                                child: Text(
+                                    productController.productResponse.storeName,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: Get.textTheme.titleMedium),
+                              ),
                             ),
                           ],
                         ),
                       ),
                       const Divider(thickness: 0.8),
-                      SizedBox(
-                          height: 55,
-                          width: MediaQuery.of(context).size.width / 2,
-                          child: AddProduct(
-                            product: productController.productResponse,
-                            isCartScreen: false,
-                          )),
+                      Align(
+                        alignment: Alignment.center,
+                        child: Container(
+                            height: 48,
+                            width: MediaQuery.of(context).size.width / 2,
+                            child: AddProduct(
+                              product: productController.productResponse,
+                              isCartScreen: false,
+                            )),
+                      ),
                       Padding(
                           padding: const EdgeInsets.only(top: 20.0),
                           child: SizedBox(
@@ -138,39 +128,43 @@ class ProductDetailScreen extends StatelessWidget {
                               children: [
                                 TableRow(children: [
                                   const Padding(
-                                    padding: EdgeInsets.symmetric(vertical: 4.0),
+                                    padding:
+                                        EdgeInsets.symmetric(vertical: 4.0),
                                     child: Text('Loại Thực Phẩm:'),
                                   ),
                                   Padding(
-                                    padding:
-                                        const EdgeInsets.symmetric(vertical: 4.0),
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 4.0),
                                     child: Text(
                                         productController
                                             .productResponse.productCategory,
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.bold)),
-                                  ),
-                                ]),
-                                const TableRow(children: [
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(vertical: 4.0),
-                                    child: Text('Đóng Gói:'),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(vertical: 4.0),
-                                    child: Text('Không có',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold)),
+                                        style: Get.textTheme.titleSmall),
                                   ),
                                 ]),
                                 TableRow(children: [
-                                  const Padding(
-                                    padding: EdgeInsets.symmetric(vertical: 4.0),
-                                    child: Text('Tối Thiểu:'),
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(vertical: 4.0),
+                                    child: Text('Đóng Gói:',
+                                        style: Get.textTheme.titleSmall),
                                   ),
                                   Padding(
                                     padding:
-                                        const EdgeInsets.symmetric(vertical: 4.0),
+                                        EdgeInsets.symmetric(vertical: 4.0),
+                                    child: Text('Không có',
+                                        style: Get.textTheme.titleSmall),
+                                  ),
+                                ]),
+                                TableRow(children: [
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(vertical: 4.0),
+                                    child: Text('Tối Thiểu:',
+                                        style: Get.textTheme.titleSmall),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 4.0),
                                     child: Text(
                                         productController.productResponse
                                                     .minimumQuantity ==
@@ -182,21 +176,22 @@ class ProductDetailScreen extends StatelessWidget {
                                   ),
                                 ]),
                                 TableRow(children: [
-                                  const Padding(
-                                    padding: EdgeInsets.symmetric(vertical: 4.0),
-                                    child: Text('Tối Đa:'),
-                                  ),
                                   Padding(
                                     padding:
-                                        const EdgeInsets.symmetric(vertical: 4.0),
+                                        EdgeInsets.symmetric(vertical: 4.0),
+                                    child: Text('Tối Đa:',
+                                        style: Get.textTheme.titleSmall),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 4.0),
                                     child: Text(
                                         productController.productResponse
                                                     .maximumQuantity ==
                                                 0
                                             ? 'Không có'
                                             : '${productController.productResponse.maximumQuantity} ${productController.productResponse.unit}',
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.bold)),
+                                        style: Get.textTheme.titleSmall),
                                   ),
                                 ]),
                               ],
@@ -205,7 +200,7 @@ class ProductDetailScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-            ),
+              ),
       ),
       floatingActionButton: CartButton(),
     );

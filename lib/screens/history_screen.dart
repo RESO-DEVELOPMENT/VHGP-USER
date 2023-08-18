@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:vinhome_user/controllers/history_controller.dart';
 import 'package:vinhome_user/utils/money_format.dart';
 
+import '../utils/date.dart';
 import 'routes/routes.dart';
 
 class HistoryScreen extends StatefulWidget {
@@ -21,7 +22,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
   @override
   initState() {
     super.initState();
-    historyController.getitemFromLocalStorage();
+    // historyController.getitemFromLocalStorage();
+    historyController.getOrderHistory();
   }
 
   @override
@@ -40,129 +42,129 @@ class _HistoryScreenState extends State<HistoryScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              height: 50,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    height: 55,
-                    width: MediaQuery.of(context).size.width / 1.3,
-                    child: TextField(
-                      controller: historyController.orderIdTextController,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8)),
-                        isDense: true,
-                        contentPadding: const EdgeInsets.all(13),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
-                    child: Container(
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(8)),
-                        gradient: LinearGradient(
-                          begin: Alignment.centerLeft,
-                          end: Alignment(1, 1),
-                          colors: <Color>[
-                            Color.fromRGBO(247, 143, 43, 1),
-                            Color.fromRGBO(255, 175, 76, 1),
-                            Color.fromRGBO(248, 219, 176, 1)
-                          ], //
-                        ),
-                      ),
-                      child: IconButton(
-                        iconSize: 25,
-                        color: Colors.white,
-                        icon: const Icon(Icons.search),
-                        onPressed: () async {
-                          await historyController
-                              .getOrderHistoryDetail(
-                                  historyController.orderIdTextController.text)
-                              .then((value) => {
-                                    if (value == 200)
-                                      {
-                                        Get.toNamed(Routes.historyDetail),
-                                      }
-                                    else
-                                      {
-                                        showAlertDialog(context),
-                                      }
-                                  });
-                        },
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            // SizedBox(
+            //   height: 36,
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.center,
+            //     crossAxisAlignment: CrossAxisAlignment.center,
+            //     children: [
+            //       SizedBox(
+            //         height: 48,
+            //         width: MediaQuery.of(context).size.width / 1.3,
+            //         child: TextField(
+            //           controller: historyController.orderIdTextController,
+            //           decoration: InputDecoration(
+            //             border: OutlineInputBorder(
+            //                 borderRadius: BorderRadius.circular(8)),
+            //             isDense: true,
+            //             contentPadding: const EdgeInsets.all(13),
+            //           ),
+            //         ),
+            //       ),
+            //       Padding(
+            //         padding: const EdgeInsets.only(left: 8.0),
+            //         child: Container(
+            //           decoration: const BoxDecoration(
+            //             borderRadius: BorderRadius.all(Radius.circular(8)),
+            //             gradient: LinearGradient(
+            //               begin: Alignment.centerLeft,
+            //               end: Alignment(1, 1),
+            //               colors: <Color>[
+            //                 Color.fromRGBO(247, 143, 43, 1),
+            //                 Color.fromRGBO(255, 175, 76, 1),
+            //                 Color.fromRGBO(248, 219, 176, 1)
+            //               ], //
+            //             ),
+            //           ),
+            //           child: IconButton(
+            //             iconSize: 25,
+            //             color: Colors.white,
+            //             icon: const Icon(Icons.search),
+            //             onPressed: () async {
+            //               await historyController
+            //                   .getOrderHistoryDetail(
+            //                       historyController.orderIdTextController.text)
+            //                   .then((value) => {
+            //                         if (value == 200)
+            //                           {
+            //                             Get.toNamed(Routes.historyDetail),
+            //                           }
+            //                         else
+            //                           {
+            //                             showAlertDialog(context),
+            //                           }
+            //                       });
+            //             },
+            //           ),
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
             Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Text.rich(
                   TextSpan(
                     children: [
-                      const TextSpan(
-                          text: 'Bạn có ',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                          )),
                       TextSpan(
-                        text:
-                            historyController.orderHistories.length.toString(),
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, color: primary),
-                      ),
-                      const TextSpan(
-                          text: ' đơn hàng!',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                          )),
+                          text: 'Bạn có ', style: Get.textTheme.titleMedium),
+                      TextSpan(
+                          text: historyController.orderHistoriesResponse.length
+                              .toString(),
+                          style: Get.textTheme.titleMedium),
+                      TextSpan(
+                          text: ' đơn hàng!', style: Get.textTheme.titleMedium),
                     ],
                   ),
                 )),
-            SizedBox(
-              height: MediaQuery.of(context).size.height / 1.5,
+            Expanded(
               child: SingleChildScrollView(
                 child: ListView.builder(
-                  reverse: true,
                   physics: const ClampingScrollPhysics(),
                   shrinkWrap: true,
-                  itemCount: historyController.orderHistories.length,
+                  itemCount: historyController.orderHistoriesResponse.length,
                   itemBuilder: (context, index) => GestureDetector(
                       onTap: () => {
                             historyController.getOrderHistoryDetail(
-                                historyController.orderHistories[index].id),
+                                historyController
+                                        .orderHistoriesResponse[index].id ??
+                                    ''),
                             Get.toNamed(Routes.historyDetail)
                           },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
                         child: Card(
-                          elevation: 5,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15),
                           ),
                           child: Padding(
-                            padding: const EdgeInsets.all(35.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            padding: const EdgeInsets.all(16),
+                            child: Column(
                               children: [
-                                Text(
-                                  '#${historyController.orderHistories[index].id}',
-                                  style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                        '${historyController.orderHistoriesResponse[index].id}',
+                                        style: Get.textTheme.titleMedium),
+                                    Text(
+                                        'Tiền hàng: ${viCurrency.format(double.parse(historyController.orderHistoriesResponse[index].total.toString()))}',
+                                        style: Get.textTheme.titleMedium)
+                                  ],
                                 ),
-                                Text(
-                                  viCurrency.format(double.parse(
-                                      historyController
-                                          .orderHistories[index].price)),
-                                  style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                )
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                        '${Status.getStatusName(historyController.orderHistoriesResponse[index].status)}',
+                                        style: Get.textTheme.titleSmall),
+                                    Text(
+                                        'Phí ship: ${viCurrency.format(double.parse(historyController.orderHistoriesResponse[index].shipCost.toString()))}',
+                                        style: Get.textTheme.titleMedium)
+                                  ],
+                                ),
                               ],
                             ),
                           ),

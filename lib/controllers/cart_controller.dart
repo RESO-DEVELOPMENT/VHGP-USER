@@ -18,7 +18,7 @@ class CartController extends GetxController {
   var isLoading = false;
   var isAdd = false;
   var isCheck = false;
-  var deliveryFee = 15000;
+  var deliveryFee = 0;
   var servicesFee = 10000;
   var deliveryCode = "Fail";
   var areaName = "";

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../common/color.dart';
 
 class CustomNavBar extends StatefulWidget {
   final int curTabIndex;
@@ -16,39 +15,26 @@ class _CustomNavBarState extends State<CustomNavBar> {
       onTap: (tabIndex) {
         widget.onTap(tabIndex);
       },
-      selectedItemColor: kPrimaryGreen,
-      unselectedItemColor: kGreyShade2,
+      elevation: 10,
+      backgroundColor: Theme.of(context).colorScheme.background,
+      selectedItemColor: Theme.of(context).colorScheme.primary,
+      unselectedItemColor: Theme.of(context).colorScheme.secondary,
       currentIndex: widget.curTabIndex,
       showUnselectedLabels: true,
       items: [
         BottomNavigationBarItem(
-          icon: widget.curTabIndex == 0
-              ? Image.asset(
-                  'assets/images/home_nav.png',
-                )
-              : Image.asset(
-                  'assets/images/home_nav_notfill.png',
-                ),
+          activeIcon: Icon(Icons.home),
+          icon: Icon(Icons.home_outlined),
           label: 'Trang chủ',
         ),
         BottomNavigationBarItem(
-          icon: widget.curTabIndex == 1
-              ? Image.asset(
-                  'assets/images/cart_nav_fill.png',
-                )
-              : Image.asset(
-                  'assets/images/cart_nav.png',
-                ),
-          label: 'Giao hàng',
+          activeIcon: Icon(Icons.shopping_cart),
+          icon: Icon(Icons.shopping_cart_outlined),
+          label: 'Đơn hàng',
         ),
         BottomNavigationBarItem(
-          icon: widget.curTabIndex == 2
-              ? Image.asset(
-                  'assets/images/profile_nav_fill.png',
-                )
-              : Image.asset(
-                  'assets/images/user_nav.png',
-                ),
+          activeIcon: Icon(Icons.account_circle),
+          icon: Icon(Icons.account_circle_outlined),
           label: 'Thông tin',
         ),
       ],

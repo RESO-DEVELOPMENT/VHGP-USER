@@ -18,12 +18,9 @@ class _AddressScreenState extends State<AddressScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           'Chọn địa chỉ nhận hàng',
-          style: TextStyle(
-            color: black,
-            fontWeight: FontWeight.bold,
-          ),
+          style: Theme.of(context).textTheme.titleLarge,
         ),
         backgroundColor: grey,
       ),
@@ -33,14 +30,6 @@ class _AddressScreenState extends State<AddressScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              width: double.infinity,
-              color: const Color.fromRGBO(239, 239, 239, 1),
-              child: const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text('Địa chỉ'),
-              ),
-            ),
             GetBuilder<AddressController>(
               builder: (controller) => Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -54,13 +43,25 @@ class _AddressScreenState extends State<AddressScreen> {
                       : Center(
                           child: SizedBox(
                             width: double.infinity,
-                            child: TextButton(
+                            child: OutlinedButton(
                                 onPressed: () {
                                   Get.toNamed(Routes.createAddress);
                                 },
-                                child: const Text(
+                                style: OutlinedButton.styleFrom(
+                                    side: BorderSide(
+                                        color: Theme.of(context).primaryColor,
+                                        width: 1),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(16))),
+                                child: Text(
                                   'Thêm mới',
-                                  style: TextStyle(color: primary),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleMedium
+                                      ?.copyWith(
+                                          color: Theme.of(context).primaryColor,
+                                          fontWeight: FontWeight.bold),
                                 )),
                           ),
                         ),

@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vinhome_user/controllers/address_controller.dart';
 import 'package:vinhome_user/controllers/apis/api_path.dart';
 import 'package:vinhome_user/models/delivery_timeline.dart';
 import 'package:vinhome_user/models/order_history.dart';
@@ -7,6 +10,9 @@ import 'package:vinhome_user/models/response/order_history_detail.dart';
 import 'package:vinhome_user/utils/ResponseUtil.dart';
 import 'package:vinhome_user/utils/date.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../models/response/address.dart';
+import '../models/response/order_history_modael.dart';
 
 class HistoryController extends GetxController {
   late SharedPreferences prefs;
@@ -16,7 +22,9 @@ class HistoryController extends GetxController {
   var isLoading = false;
   int currentStep = 0;
   final TextEditingController orderIdTextController = TextEditingController();
+  late AddressController addressController = Get.find<AddressController>();
   late List<OrderHistory> orderHistories = [];
+  late List<OrderHistoryModel> orderHistoriesResponse = [];
   late List<DeliveryTimeLine> deliveryTimeLine = [
     DeliveryTimeLine('Đặt hàng thành công', '---', 'assets/images/3338721.png'),
     DeliveryTimeLine('Đang xử lý', '---', 'assets/images/dangxuly.png'),
@@ -42,6 +50,28 @@ class HistoryController extends GetxController {
           orderHistoryFromJson(prefs.getString('orderHistoryIds')!);
       update();
     }
+  }
+
+  Future<void> getOrderHistory() async {
+    isLoading = true;
+    orderHistoriesResponse = [];
+    Address? selectedAddress = addressController.addressList
+        .firstWhereOrNull((element) => element.isDefault == 1);
+    Map<String, dynamic> queryParams = {
+      'pageIndex': "1",
+      'pageSize': "20",
+      'phone': selectedAddress?.soDienThoai
+    };
+    ResponseUtil.getMapping(
+            path: ApiPath.ORDER_HISTORY_BY_PHONE, queryParams: queryParams)
+        .then((value) {
+      for (var item in json.decode(value.body)) {
+        OrderHistoryModel orderResponse = OrderHistoryModel.fromJson(item);
+        orderHistoriesResponse.add(orderResponse);
+      }
+      isLoading = false;
+      update();
+    });
   }
 
   Future<int> getOrderHistoryDetail(String id) async {
