@@ -59,7 +59,7 @@ class HistoryController extends GetxController {
         .firstWhereOrNull((element) => element.isDefault == 1);
     Map<String, dynamic> queryParams = {
       'pageIndex': "1",
-      'pageSize': "20",
+      'pageSize': "100",
       'phone': selectedAddress?.soDienThoai
     };
     ResponseUtil.getMapping(
@@ -88,7 +88,7 @@ class HistoryController extends GetxController {
           }
           int j = 0;
           for (var i = 0; i < orderHistoryDetail.listStatusOrder.length; i++) {
-            deliveryTimeLine[j++].time =
+            deliveryTimeLine[j].time =
                 dateFormat.format(orderHistoryDetail.listStatusOrder[i].time);
           }
         } else {

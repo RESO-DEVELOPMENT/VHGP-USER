@@ -186,7 +186,6 @@ class StoreScreen extends StatelessWidget {
                 ),
         ),
       ),
-      floatingActionButton: CartButton(),
     );
   }
 }

@@ -23,28 +23,17 @@ class UserInformation extends StatelessWidget {
     return Row(
       children: [
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(4),
           child: Icon(
             faIcon,
-            size: 24,
+            color: Get.theme.primaryColor,
+            size: 16,
           ),
         ),
-        // ClipRRect(
-        //     borderRadius: BorderRadius.circular(8),
-        //     child: Container(
-        //       height: 40,
-        //       width: 40,
-        //       color: const Color.fromRGBO(204, 204, 204, 1),
-        //       child: Center(
-        //           child: FaIcon(
-        //         faIcon,
-        //         color: const Color.fromRGBO(255, 255, 255, 1),
-        //       )),
-        //     )),
         Text(
           value,
           overflow: TextOverflow.ellipsis,
-          style: Get.textTheme.titleMedium,
+          style: Get.textTheme.bodyMedium,
         ),
       ],
     );

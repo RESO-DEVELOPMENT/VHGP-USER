@@ -24,7 +24,7 @@ class TabTitleUnCount extends StatelessWidget {
           Expanded(
             child: Text(
               title!,
-              style: Theme.of(context).textTheme.titleMedium,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
           if (seeAll != null)

@@ -16,10 +16,12 @@ class _CustomNavBarState extends State<CustomNavBar> {
         widget.onTap(tabIndex);
       },
       elevation: 10,
+      type: BottomNavigationBarType.fixed,
       backgroundColor: Theme.of(context).colorScheme.background,
       selectedItemColor: Theme.of(context).colorScheme.primary,
       unselectedItemColor: Theme.of(context).colorScheme.secondary,
       currentIndex: widget.curTabIndex,
+      landscapeLayout: BottomNavigationBarLandscapeLayout.linear,
       showUnselectedLabels: true,
       items: [
         BottomNavigationBarItem(
@@ -30,6 +32,11 @@ class _CustomNavBarState extends State<CustomNavBar> {
         BottomNavigationBarItem(
           activeIcon: Icon(Icons.shopping_cart),
           icon: Icon(Icons.shopping_cart_outlined),
+          label: 'Giỏ hàng',
+        ),
+        BottomNavigationBarItem(
+          activeIcon: Icon(Icons.receipt),
+          icon: Icon(Icons.receipt_outlined),
           label: 'Đơn hàng',
         ),
         BottomNavigationBarItem(
