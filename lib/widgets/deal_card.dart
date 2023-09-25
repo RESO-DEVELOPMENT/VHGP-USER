@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:vinhome_user/models/response/store_response.dart';
 import '../models/response/mode3.dart';
 import '../utils/screen_utils.dart';
@@ -52,8 +53,8 @@ class DealCard extends StatelessWidget {
                     BorderRadius.circular(getProportionateScreenWidth(8)),
                 child: Image.network(
                   image,
-                  width: getProportionateScreenWidth(115),
-                  height: getProportionateScreenHeight(115),
+                  width: getProportionateScreenWidth(60),
+                  height: getProportionateScreenHeight(60),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -65,21 +66,18 @@ class DealCard extends StatelessWidget {
                     width: 100,
                     child: Text(
                       name,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: getProportionateScreenWidth(14),
-                        fontWeight: FontWeight.w700,
-                      ),
+                      style: Get.textTheme.bodyMedium,
                       overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
                     ),
                   ),
-                  Text(
-                    '${building}',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: getProportionateScreenWidth(12),
-                    ),
-                  ),
+                  // Text(
+                  //   '${building}',
+                  //   style: TextStyle(
+                  //     color: Colors.black,
+                  //     fontSize: getProportionateScreenWidth(12),
+                  //   ),
+                  // ),
                 ],
               ),
             ],

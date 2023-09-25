@@ -33,8 +33,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
         elevation: 0,
         automaticallyImplyLeading: false,
         title: const Text(
-          'Lịch sử giao hàng',
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          'Lịch sử đơn hàng',
         ),
       ),
       body: GetBuilder<HistoryController>(
@@ -134,9 +133,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
                         child: Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
+                          elevation: 1,
+                          surfaceTintColor: Colors.white,
                           child: Padding(
                             padding: const EdgeInsets.all(16),
                             child: Column(
@@ -150,7 +148,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                         style: Get.textTheme.titleMedium),
                                     Text(
                                         'Tiền hàng: ${viCurrency.format(double.parse(historyController.orderHistoriesResponse[index].total.toString()))}',
-                                        style: Get.textTheme.titleMedium)
+                                        style: Get.textTheme.bodyMedium)
                                   ],
                                 ),
                                 Row(
@@ -159,10 +157,10 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                   children: [
                                     Text(
                                         '${Status.getStatusName(historyController.orderHistoriesResponse[index].status)}',
-                                        style: Get.textTheme.titleSmall),
+                                        style: Get.textTheme.bodyMedium),
                                     Text(
                                         'Phí ship: ${viCurrency.format(double.parse(historyController.orderHistoriesResponse[index].shipCost.toString()))}',
-                                        style: Get.textTheme.titleMedium)
+                                        style: Get.textTheme.bodyMedium)
                                   ],
                                 ),
                               ],

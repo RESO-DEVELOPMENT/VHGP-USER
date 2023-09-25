@@ -128,15 +128,15 @@ class _HomeScreenState extends State<HomeScreen> {
                               topRight: Radius.circular(10)),
                           color: Colors.white,
                         ),
-                        child: Padding(
+                        child: SingleChildScrollView(
                           padding: const EdgeInsets.only(top: 10.0),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               _buildCategories(context),
-                              _buildDealByCategories(),
-                              // _buildOfferCarousel(context),
+                              // _buildDealByCategories(),
+                              _buildOfferCarousel(context),
                               _getStores(context),
                             ],
                           ),
@@ -205,7 +205,7 @@ class _HomeScreenState extends State<HomeScreen> {
       padding: EdgeInsets.symmetric(
           horizontal: MediaQuery.of(theme).size.width * 0.028),
       child: SizedBox(
-        height: 80,
+        height: 120,
         width: MediaQuery.of(theme).size.width,
         child: ListView.builder(
           physics: const NeverScrollableScrollPhysics(),
@@ -265,9 +265,8 @@ class _HomeScreenState extends State<HomeScreen> {
       child: GestureDetector(
         onTap: category.function,
         child: Card(
-          // decoration: BoxDecoration(
-          //   borderRadius: BorderRadius.circular(10),
-          // ),
+          elevation: 2,
+          surfaceTintColor: Colors.grey,
           margin: EdgeInsets.only(
               right: controller.categories.length - 1 == index ? 0 : 8),
           child: Stack(

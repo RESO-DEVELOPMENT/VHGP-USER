@@ -46,6 +46,7 @@ class HomeController extends GetxController {
   void onInit() {
     carouselController = CarouselController();
     getMod();
+    getOffers(1);
     super.onInit();
   }
 

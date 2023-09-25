@@ -56,6 +56,8 @@ dependencies:
   rename: ^2.1.1
   image_picker: ^0.8.5+3
   firebase_core: ^2.15.0
+  firebase_auth: ^4.8.0
+  pinput: ^3.0.0
   
 dev_dependencies:
   flutter_test:

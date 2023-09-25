@@ -30,17 +30,17 @@ class _CartScreenState extends State<CartScreen> {
 
   final HomeController homeController = Get.find<HomeController>();
 
-  late String deliveryMode = "GIAO NHANH 30 PHÚT";
+  late String deliveryMode = "Giao nhanh trong 20 - 30 phút";
 
-  final String deliveryMode2 = "GIAO HÀNG TRONG NGÀY";
+  final String deliveryMode2 = "Giao hàng trong ngày";
 
   @override
   void initState() {
     cartController.quantity = 0;
-    if (homeController.modeId == 2) {
+    if (cartController.cart.modeId == "2") {
       deliveryMode = deliveryMode2;
       cartController.initOptionTime();
-    } else if (homeController.modeId == 3) {
+    } else if (cartController.cart.modeId == "3") {
       cartController.initOptionTime();
       deliveryMode = homeController.deliveryTimeMode3;
     } else {
@@ -55,329 +55,428 @@ class _CartScreenState extends State<CartScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: const Text(
           'Giỏ hàng',
         ),
       ),
       body: GetBuilder<CartController>(
-        builder: (controller) => Column(
-          children: [
-            SizedBox(
-              height: MediaQuery.of(context).size.height / 1.5,
-              child: SingleChildScrollView(
-                physics: const ClampingScrollPhysics(),
-                padding: EdgeInsets.all(8),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      child: Padding(
+        builder: (controller) => cartController.cart.orderDetail.isEmpty
+            ? Center(
+                child: Text('Giỏ hàng trống'),
+              )
+            : Column(
+                children: [
+                  Expanded(
+                    child: SizedBox(
+                      child: SingleChildScrollView(
+                        physics: const ClampingScrollPhysics(),
                         padding: EdgeInsets.all(8),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              'Giao đến',
-                              style: Get.textTheme.titleSmall,
-                            ),
-                            Text(
-                              '${cartController.cart.buildingName}, ${cartController.areaName} Vinhomes GP',
-                              style: Get.textTheme.titleMedium,
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('Được giao từ',
-                                    style: Get.textTheme.titleSmall),
-                                Text('${cartController.cart.storeName}',
-                                    style: Get.textTheme.titleMedium),
-                              ],
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('Hình thức giao hàng',
-                                    style: Get.textTheme.titleSmall),
-                                Text(deliveryMode,
-                                    style: Get.textTheme.titleMedium),
-                              ],
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('Thời gian giao dự kiến',
-                                    style: Get.textTheme.titleSmall),
-                                homeController.modeId != 1
-                                    ? GetBuilder<CartController>(
-                                        builder: (controller) => Column(
-                                          children: [
-                                            SizedBox(
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.05,
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.45,
-                                              child: GestureDetector(
-                                                onTap: () {
-                                                  if (cartController
-                                                      .optionTimeList.isEmpty) {
-                                                    showOptionTimesEmptyAlertDialog(
-                                                        context);
-                                                  } else {
-                                                    cartController
-                                                        .changeOptionTime(0);
-                                                    showCupertinoModalPopup(
-                                                        context: context,
-                                                        builder: (context) =>
-                                                            buildTimePickerPicker());
-                                                  }
-                                                },
-                                                child: Container(
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width /
-                                                      2.5,
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8),
-                                                      border: Border.all(
-                                                          color: Colors.grey)),
-                                                  child: Padding(
-                                                    padding: const EdgeInsets
-                                                            .symmetric(
-                                                        horizontal: 8.0),
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        Text(cartController
-                                                            .deliveryTime),
-                                                        const Row(
-                                                          children: [
-                                                            Padding(
-                                                              padding: EdgeInsets
-                                                                  .symmetric(
-                                                                      vertical:
-                                                                          8.0),
-                                                              child:
-                                                                  VerticalDivider(
-                                                                color:
-                                                                    Colors.grey,
-                                                                thickness: 1,
-                                                              ),
-                                                            ),
-                                                            Icon(
-                                                              Icons
-                                                                  .keyboard_arrow_down,
-                                                              color:
-                                                                  Colors.grey,
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width,
+                              child: Padding(
+                                padding: EdgeInsets.all(8),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text("Thông tin giao hàng",
+                                        style: Get.textTheme.titleMedium),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.store_outlined,
+                                          color: Get.theme.primaryColor,
+                                          size: 16,
                                         ),
-                                      )
-                                    : Text(
-                                        '${dateFormat.format(DateTime.now().add(const Duration(minutes: 20)))} - ${dateFormat.format(DateTime.now().add(const Duration(minutes: 30)))}',
-                                        style: const TextStyle(
-                                            fontSize: 14,
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold)),
+                                        SizedBox(
+                                          width: 4,
+                                        ),
+                                        Text('${cartController.cart.storeName}',
+                                            style: Get.textTheme.bodyMedium),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.location_on,
+                                          color: Get.theme.primaryColor,
+                                          size: 16,
+                                        ),
+                                        SizedBox(
+                                          width: 4,
+                                        ),
+                                        Text(
+                                          '${cartController.cart.buildingName}, ${cartController.areaName} Vinhomes GP',
+                                          style: Get.textTheme.bodyMedium,
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Icon(
+                                          Icons.delivery_dining,
+                                          color: Get.theme.primaryColor,
+                                          size: 16,
+                                        ),
+                                        SizedBox(
+                                          width: 4,
+                                        ),
+                                        Text(deliveryMode,
+                                            style: Get.textTheme.bodyMedium),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.access_time,
+                                          color: Get.theme.primaryColor,
+                                          size: 16,
+                                        ),
+                                        SizedBox(
+                                          width: 4,
+                                        ),
+                                        cartController.cart.modeId != "1"
+                                            ? GetBuilder<CartController>(
+                                                builder: (controller) => Column(
+                                                  children: [
+                                                    SizedBox(
+                                                      height:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                              0.05,
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.45,
+                                                      child: GestureDetector(
+                                                        onTap: () {
+                                                          if (cartController
+                                                              .optionTimeList
+                                                              .isEmpty) {
+                                                            showOptionTimesEmptyAlertDialog(
+                                                                context);
+                                                          } else {
+                                                            cartController
+                                                                .changeOptionTime(
+                                                                    0);
+                                                            showCupertinoModalPopup(
+                                                                context:
+                                                                    context,
+                                                                builder:
+                                                                    (context) =>
+                                                                        buildTimePickerPicker());
+                                                          }
+                                                        },
+                                                        child: Container(
+                                                          width: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width /
+                                                              2.5,
+                                                          decoration: BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          8),
+                                                              border: Border.all(
+                                                                  color: Colors
+                                                                      .grey)),
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .symmetric(
+                                                                    horizontal:
+                                                                        8.0),
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
+                                                              children: [
+                                                                Text(
+                                                                  cartController
+                                                                      .deliveryTime,
+                                                                  style: Get
+                                                                      .textTheme
+                                                                      .bodyMedium,
+                                                                ),
+                                                                const Row(
+                                                                  children: [
+                                                                    Padding(
+                                                                      padding: EdgeInsets.symmetric(
+                                                                          vertical:
+                                                                              8.0),
+                                                                      child:
+                                                                          VerticalDivider(
+                                                                        color: Colors
+                                                                            .grey,
+                                                                        thickness:
+                                                                            1,
+                                                                      ),
+                                                                    ),
+                                                                    Icon(
+                                                                      Icons
+                                                                          .keyboard_arrow_down,
+                                                                      color: Colors
+                                                                          .grey,
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              )
+                                            : Text(
+                                                '${dateFormat.format(DateTime.now().add(const Duration(minutes: 20)))} - ${dateFormat.format(DateTime.now().add(const Duration(minutes: 30)))}',
+                                                style: Get.textTheme.bodyMedium,
+                                              ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Divider(
+                              color: Colors.grey,
+                              thickness: 1,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text("Thông tin người nhận",
+                                    style: Get.textTheme.titleMedium),
+                                TextButton(
+                                    onPressed: () =>
+                                        Get.toNamed(Routes.address),
+                                    child: Text("Thay đổi")),
                               ],
+                            ),
+                            GetBuilder<AddressController>(
+                                builder: (controller) =>
+                                    _buildInformation(context)),
+                            Divider(
+                              color: Colors.grey,
+                              thickness: 1,
+                            ),
+                            Text("Chi tiết đơn hàng",
+                                style: Get.textTheme.titleMedium),
+                            _buildOrderProductDetail(),
+                            Divider(
+                              color: Colors.grey,
+                              thickness: 1,
+                            ),
+                            // _buildeDelivery(context),
+                            // Divider(
+                            //   color: Colors.grey,
+                            //   thickness: 1,
+                            // ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                              ),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text('Tiền hàng:',
+                                          style: Get.textTheme.titleSmall),
+                                      Text(
+                                          viCurrency.format(
+                                              cartController.cart.total),
+                                          style: Get.textTheme.titleSmall),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text('Phí giao hàng:',
+                                          style: Get.textTheme.titleSmall),
+                                      Text(
+                                          viCurrency.format(
+                                            cartController.deliveryFee,
+                                          ),
+                                          style: Get.textTheme.titleSmall),
+                                    ],
+                                  ),
+                                  Divider(
+                                    color: Colors.grey,
+                                    thickness: 1,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 2.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text('Tổng cộng:',
+                                            style: Get.textTheme.titleMedium),
+                                        Text(
+                                            viCurrency.format(
+                                                cartController.cart.total +
+                                                    cartController.deliveryFee),
+                                            style: Get.textTheme.titleMedium),
+                                      ],
+                                    ),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text('Thanh toán',
+                                          style: Get.textTheme.titleMedium),
+                                      Text('Tiền mặt',
+                                          style: Get.textTheme.titleMedium),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 4,
+                                  ),
+                                  // Row(
+                                  //   mainAxisAlignment:
+                                  //       MainAxisAlignment.spaceBetween,
+                                  //   children: [
+                                  //     Text('Phí dịch vụ',
+                                  //         style: Get.textTheme.bodyLarge),
+                                  //     Text(
+                                  //         viCurrency.format(
+                                  //             cartController.isCheck
+                                  //                 ? cartController.servicesFee
+                                  //                 : 0),
+                                  //         style: Get.textTheme.bodyLarge),
+                                  //   ],
+                                  // ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  GetBuilder<CartController>(
+                    builder: (controller) => Align(
+                      alignment: FractionalOffset.bottomCenter,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            if ((controller.optionTimeList.isEmpty &&
+                                    cartController.cart.modeId != "1") ||
+                                cartController.deliveryTime == "Chọn khung giờ")
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 2.0),
+                                child: Text(
+                                  "Chưa chọn khung giờ giao hàng",
+                                  style:
+                                      TextStyle(color: Get.theme.primaryColor),
+                                ),
+                              ),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(8, 8, 8, 24),
+                              child: InkWell(
+                                onTap: (controller.optionTimeList.isEmpty &&
+                                            homeController.modeId != 1) ||
+                                        controller.cart.orderDetail.isEmpty
+                                    ? null
+                                    : () {
+                                        if (cartController.cart.fullName ==
+                                                null ||
+                                            cartController.cart.fullName ==
+                                                '' ||
+                                            cartController.cart.phoneNumber ==
+                                                null ||
+                                            cartController.cart.phoneNumber ==
+                                                '' ||
+                                            cartController.deliveryTime ==
+                                                "Chọn khung giờ") {
+                                          showErrorAlertDialog(context);
+                                        } else {
+                                          builderConfirmOrder(context);
+                                        }
+                                      },
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 12),
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(8)),
+                                      boxShadow: <BoxShadow>[
+                                        BoxShadow(
+                                            color: Colors.grey.shade200,
+                                            offset: const Offset(2, 4),
+                                            blurRadius: 5,
+                                            spreadRadius: 2)
+                                      ],
+                                      gradient: LinearGradient(
+                                          begin: Alignment.centerLeft,
+                                          end: Alignment.centerRight,
+                                          colors: (controller.optionTimeList
+                                                          .isEmpty &&
+                                                      cartController
+                                                              .cart.modeId !=
+                                                          "1") ||
+                                                  controller
+                                                      .cart.orderDetail.isEmpty
+                                              ? [
+                                                  Color.fromRGBO(
+                                                      228, 227, 227, 1),
+                                                  Color.fromRGBO(
+                                                      194, 192, 192, 1)
+                                                ]
+                                              : [
+                                                  primary,
+                                                  primary2,
+                                                ])),
+                                  child: Text('Đặt hàng',
+                                      style: Get.textTheme.titleLarge?.copyWith(
+                                          color: Get
+                                              .theme.colorScheme.background)),
+                                ),
+                              ),
                             ),
                           ],
                         ),
                       ),
                     ),
-                    TabTitleUnCount(
-                        title: "Thông tin người nhận",
-                        actionText: "Thay đổi",
-                        seeAll: () => Get.toNamed(Routes.address)),
-                    GetBuilder<AddressController>(
-                        builder: (controller) => _buildInformation(context)),
-                    const TabTitleUnCount(title: "Tóm tắt đơn hàng"),
-                    _buildOrderProductDetail(),
-                    _buildeDelivery(context),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 15.0, vertical: 15),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text('Tiền hàng:',
-                                  style: Get.textTheme.titleMedium),
-                              Text(viCurrency.format(cartController.cart.total),
-                                  style: Get.textTheme.titleMedium),
-                            ],
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text('Phí giao hàng:',
-                                    style: Get.textTheme.titleMedium),
-                                Text(
-                                    viCurrency.format(
-                                      cartController.deliveryFee,
-                                    ),
-                                    style: Get.textTheme.titleMedium),
-                              ],
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text('Phí dịch vụ',
-                                  style: Get.textTheme.titleMedium),
-                              Text(
-                                  viCurrency.format(cartController.isCheck
-                                      ? cartController.servicesFee
-                                      : 0),
-                                  style: Get.textTheme.titleMedium),
-                            ],
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-            GetBuilder<CartController>(
-              builder: (controller) => Expanded(
-                child: Align(
-                  alignment: FractionalOffset.bottomCenter,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width / 2.5,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Image.asset(
-                                'assets/images/money.png',
-                                height: 35,
-                              ),
-                              const Text('Tiền mặt'),
-                              const ImageIcon(
-                                AssetImage("assets/images/arrow_user.png"),
-                                size: 24,
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 2.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
-                                'Tổng cộng:',
-                                style: TextStyle(fontSize: 15),
-                              ),
-                              Text(
-                                viCurrency.format(cartController.cart.total +
-                                    cartController.deliveryFee),
-                                style: const TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          ),
-                        ),
-                        if ((controller.optionTimeList.isEmpty &&
-                                homeController.modeId != 1) ||
-                            cartController.deliveryTime == "Chọn khung giờ")
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 2.0),
-                            child: const Text(
-                              "Chưa chọn khung giờ giao hàng",
-                              style: TextStyle(
-                                  color: Color.fromRGBO(217, 48, 37, 1)),
-                            ),
-                          ),
-                        InkWell(
-                          onTap: (controller.optionTimeList.isEmpty &&
-                                      homeController.modeId != 1) ||
-                                  controller.cart.orderDetail.isEmpty
-                              ? null
-                              : () {
-                                  if (cartController.cart.fullName == null ||
-                                      cartController.cart.fullName == '' ||
-                                      cartController.cart.phoneNumber == null ||
-                                      cartController.cart.phoneNumber == '' ||
-                                      cartController.deliveryTime ==
-                                          "Chọn khung giờ") {
-                                    showErrorAlertDialog(context);
-                                  } else {
-                                    builderConfirmOrder(context);
-                                  }
-                                },
-                          child: Container(
-                            width: MediaQuery.of(context).size.width,
-                            padding: const EdgeInsets.symmetric(vertical: 15),
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(8)),
-                                boxShadow: <BoxShadow>[
-                                  BoxShadow(
-                                      color: Colors.grey.shade200,
-                                      offset: const Offset(2, 4),
-                                      blurRadius: 5,
-                                      spreadRadius: 2)
-                                ],
-                                gradient: LinearGradient(
-                                    begin: Alignment.centerLeft,
-                                    end: Alignment.centerRight,
-                                    colors: (controller
-                                                    .optionTimeList.isEmpty &&
-                                                homeController.modeId != 1) ||
-                                            controller.cart.orderDetail.isEmpty
-                                        ? [
-                                            Color.fromRGBO(228, 227, 227, 1),
-                                            Color.fromRGBO(194, 192, 192, 1)
-                                          ]
-                                        : [
-                                            primary,
-                                            primary2,
-                                          ])),
-                            child: Text('Đặt hàng',
-                                style: Get.textTheme.titleLarge?.copyWith(
-                                    color: Get.theme.colorScheme.background)),
-                          ),
-                        ),
-                      ],
-                    ),
                   ),
-                ),
+                ],
               ),
-            ),
-          ],
-        ),
       ),
     );
   }
@@ -389,60 +488,43 @@ class _CartScreenState extends State<CartScreen> {
         shrinkWrap: true,
         itemCount: controller.cart.orderDetail.length,
         itemBuilder: (context, index) => Padding(
-          padding: const EdgeInsets.all(8),
+          padding: const EdgeInsets.fromLTRB(8, 4, 8, 4),
           child: SizedBox(
             width: MediaQuery.of(context).size.width,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(
-                  height: 48,
-                  width: 48,
-                  child: CachedNetworkImage(
-                    imageUrl: controller.cart.orderDetail[index].imageUrl ?? '',
-                    imageBuilder: (context, imageProvider) => Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        image: DecorationImage(
-                          image: imageProvider,
-                          fit: BoxFit.cover,
+                Expanded(
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          '${cartController.cart.orderDetail[index].productName}',
+                          style: Get.textTheme.bodyMedium,
+                          overflow: TextOverflow.clip,
                         ),
-                      ),
-                    ),
-                  ),
+                        InkWell(
+                          onTap: () {
+                            cartController.showUpdateQuantity(cartController
+                                .cart.orderDetail[index].productId);
+                            _showUpdateProduct(context,
+                                cartController.cart.orderDetail[index]);
+                          },
+                          child: Text(
+                            'Chỉnh sửa',
+                            style: Get.textTheme.bodyMedium
+                                ?.copyWith(color: Get.theme.primaryColor),
+                          ),
+                        ),
+                      ]),
                 ),
                 Text(
                   'x${cartController.cart.orderDetail[index].quantity}',
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 4),
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width / 2,
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            '${cartController.cart.orderDetail[index].productName}',
-                            style: Get.textTheme.bodyMedium,
-                            overflow: TextOverflow.clip,
-                          ),
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.04,
-                            child: TextButton(
-                              onPressed: () {
-                                cartController.showUpdateQuantity(cartController
-                                    .cart.orderDetail[index].productId);
-                                _showUpdateProduct(context,
-                                    cartController.cart.orderDetail[index]);
-                              },
-                              child: Text(
-                                'Chỉnh sửa',
-                                style: Get.textTheme.bodyMedium,
-                              ),
-                            ),
-                          ),
-                        ]),
-                  ),
+                SizedBox(
+                  width: 8,
                 ),
                 Text(
                   viCurrency.format(controller.cart.orderDetail[index].price),
@@ -456,101 +538,109 @@ class _CartScreenState extends State<CartScreen> {
     );
   }
 
-  Card _buildInformation(BuildContext context) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(8),
-        child: SizedBox(
-          width: MediaQuery.of(context).size.width,
-          child: Column(
-            children: [
-              UserInformation(
-                cartController: cartController,
-                label: 'Tên người nhận',
-                value: cartController.cart.fullName ?? '',
-                faIcon: FontAwesomeIcons.solidUser,
-              ),
-              UserInformation(
-                cartController: cartController,
-                label: 'Số điện thoại',
-                value: cartController.cart.phoneNumber ?? '',
-                faIcon: FontAwesomeIcons.phone,
-              ),
-              InkWell(
-                onTap: () => _showWarning(context),
-                child: UserInformation(
-                  cartController: cartController,
-                  label: 'Lưu ý',
-                  value: cartController.cart.note ?? '',
-                  faIcon: FontAwesomeIcons.clipboard,
-                ),
-              ),
-            ],
+  Widget _buildInformation(BuildContext context) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      child: Column(
+        children: [
+          UserInformation(
+            cartController: cartController,
+            label: 'Tên người nhận',
+            value: cartController.cart.fullName ?? '',
+            faIcon: Icons.account_box_outlined,
           ),
-        ),
+          UserInformation(
+            cartController: cartController,
+            label: 'Số điện thoại',
+            value: cartController.cart.phoneNumber ?? '',
+            faIcon: Icons.phone_outlined,
+          ),
+          Divider(
+            color: Colors.grey,
+            thickness: 1,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                "Ghi chú : ",
+                style: Get.textTheme.titleMedium,
+              ),
+              Expanded(child: Text(cartController.cart.note ?? '')),
+              TextButton(
+                  onPressed: () => _showWarning(context),
+                  child: Text('Chỉnh sửa'))
+            ],
+          )
+        ],
       ),
     );
   }
 
   GetBuilder _buildeDelivery(BuildContext context) {
     return GetBuilder<CartController>(
-      builder: (controller) => Card(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Checkbox(
-                    checkColor: Colors.white,
-                    fillColor: MaterialStateProperty.resolveWith(getColor),
-                    value: cartController.isCheck,
-                    onChanged: (bool? value) {
-                      cartController.setCheck();
-                    },
-                  ),
-                  SizedBox(
-                    height: 32,
-                    width: 32,
-                    child: CachedNetworkImage(
-                      imageUrl:
-                          'https://cdn-icons-png.flaticon.com/512/2844/2844235.png',
-                      imageBuilder: (context, imageProvider) => Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          image: DecorationImage(
-                            image: imageProvider,
-                            fit: BoxFit.cover,
-                          ),
+      builder: (controller) => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Checkbox(
+                  checkColor: Colors.white,
+                  fillColor: MaterialStateProperty.resolveWith(getColor),
+                  value: cartController.isCheck,
+                  onChanged: (bool? value) {
+                    cartController.setCheck();
+                  },
+                ),
+                SizedBox(
+                  height: 32,
+                  width: 32,
+                  child: CachedNetworkImage(
+                    imageUrl:
+                        'https://cdn-icons-png.flaticon.com/512/2844/2844235.png',
+                    imageBuilder: (context, imageProvider) => Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        image: DecorationImage(
+                          image: imageProvider,
+                          fit: BoxFit.cover,
                         ),
                       ),
                     ),
                   ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width / 2,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Hỏa tốc',
-                          style: Get.textTheme.titleMedium,
-                        ),
-                        Text(
-                            'Đơn hàng của bạn đang được ưu tiên để tài xế giao sớm nhất.',
-                            style: Get.textTheme.bodySmall)
-                      ],
-                    ),
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.7,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Hỏa tốc',
+                            style: Get.textTheme.titleMedium,
+                          ),
+                          Text(viCurrency.format(cartController.servicesFee),
+                              style: Get.textTheme.titleSmall),
+                        ],
+                      ),
+                      Text(
+                          'Đơn hàng của bạn đang được ưu tiên để tài xế giao sớm nhất.',
+                          style: Get.textTheme.bodySmall)
+                    ],
                   ),
-                ],
-              ),
-              Text(viCurrency.format(cartController.servicesFee),
-                  style: Get.textTheme.titleSmall),
-            ],
-          ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

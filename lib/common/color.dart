@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const Color primary = Color.fromARGB(255, 250, 159, 56);
+const Color primary = Colors.deepOrange;
 const Color primary2 = Color(0xfff7892b);
 const Color black = Color.fromRGBO(24, 23, 37, 1.0);
 const Color secondary = Color.fromARGB(255, 6, 88, 155);
@@ -9,6 +9,20 @@ const Color grey = Color.fromRGBO(245, 245, 245, 1);
 const Color success = Color.fromARGB(255, 0, 184, 116);
 const Color sucessButtonPrimary = Color.fromRGBO(93, 229, 147, 1);
 const Color sucessButtonSecondary = Color.fromRGBO(65, 214, 124, 1);
+
+const ColorScheme colorScheme = ColorScheme(
+  primary: Colors.deepOrange,
+  secondary: secondary,
+  surface: white,
+  background: white,
+  error: Colors.red,
+  onPrimary: white,
+  onSecondary: white,
+  onSurface: black,
+  onBackground: black,
+  onError: white,
+  brightness: Brightness.light,
+);
 
 // const kPrimaryGreen = Color(0xFF54B175);
 // const kPrimaryRed = Color(0xFFFE6E4C);
@@ -66,6 +80,20 @@ class AppColors {
   // static const Color success = Color.fromARGB(176, 0, 163, 54);
 
   static ThemeData get getTheme => ThemeData(
+        useMaterial3: true,
+        colorScheme: ColorScheme(
+          primary: Colors.deepOrange,
+          secondary: Colors.grey,
+          surface: white,
+          background: white,
+          error: Colors.red,
+          onPrimary: white,
+          onSecondary: white,
+          onSurface: black,
+          onBackground: black,
+          onError: white,
+          brightness: Brightness.light,
+        ),
         scaffoldBackgroundColor: grey,
         tabBarTheme: const TabBarTheme(
             labelColor: primary,

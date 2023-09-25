@@ -71,7 +71,6 @@ class CategoryDetailScreen extends StatelessWidget {
                 ),
               ),
       ),
-      floatingActionButton: CartButton(),
     );
   }
 

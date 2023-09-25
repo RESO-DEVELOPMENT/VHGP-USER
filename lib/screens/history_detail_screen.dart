@@ -50,12 +50,10 @@ class _HistoryDetailScreenState extends State<HistoryDetailScreen> {
                           ),
                           Padding(
                             padding: const EdgeInsets.all(8),
-                            child: Card(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8),
-                                child: orderInformation(
-                                    context, textStyle, controller),
-                              ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8),
+                              child: orderInformation(
+                                  context, textStyle, controller),
                             ),
                           ),
                           deliveryTimeLine(textStyle, controller),

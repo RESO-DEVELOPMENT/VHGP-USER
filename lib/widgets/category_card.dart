@@ -25,7 +25,8 @@ class CategoryCard extends StatelessWidget {
             radius: getProportionateScreenWidth(24),
             backgroundColor: Colors.transparent,
             child: SizedBox(
-              width: getProportionateScreenWidth(48),
+              height: MediaQuery.of(context).size.width * 0.2,
+              width: MediaQuery.of(context).size.width * 0.2,
               child: end
                   ? Image.asset(category.image)
                   : CachedNetworkImage(

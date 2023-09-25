@@ -202,7 +202,6 @@ class ProductDetailScreen extends StatelessWidget {
                 ),
               ),
       ),
-      floatingActionButton: CartButton(),
     );
   }
 }

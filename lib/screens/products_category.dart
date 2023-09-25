@@ -64,7 +64,6 @@ class _ProductCategoryScreenState extends State<ProductCategoryScreen> {
                 ],
               ),
       ),
-      floatingActionButton: CartButton(),
     );
   }
 

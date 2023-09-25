@@ -31,11 +31,7 @@ class MyApp extends StatelessWidget {
         return GetMaterialApp(
           title: 'VHGP User',
           debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-              useMaterial3: true,
-              brightness: Brightness.light,
-              fontFamily: GoogleFonts.inter().fontFamily,
-              colorSchemeSeed: Colors.orangeAccent),
+          theme: AppColors.getTheme,
           initialRoute: Routes.login,
           getPages: RouterGenerator.pages,
         );

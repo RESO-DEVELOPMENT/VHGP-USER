@@ -18,7 +18,7 @@ class CartController extends GetxController {
   var isLoading = false;
   var isAdd = false;
   var isCheck = false;
-  var deliveryFee = 0;
+  num deliveryFee = 0;
   var servicesFee = 10000;
   var deliveryCode = "Fail";
   var areaName = "";
@@ -58,6 +58,7 @@ class CartController extends GetxController {
     if (cart.orderDetail.isEmpty) {
       cart.storeName = product.storeName;
       cart.storeId = product.storeId;
+      cart.modeId = homeController.modeId.toString();
       cart.orderDetail.add(OrderDetail(
           price: product.pricePerPack,
           productId: product.id,
@@ -136,6 +137,10 @@ class CartController extends GetxController {
   }
 
   void getTotal() {
+    deliveryFee = homeController.listMenuMode
+        .where((element) => element.id == homeController.menuMode)
+        .first
+        .shipCost;
     cart.note = '';
     cart.total = 0;
     for (var orderProduct in cart.orderDetail) {
@@ -146,8 +151,7 @@ class CartController extends GetxController {
 
   Future<void> submitOrder() async {
     isLoading = true;
-    cart.deliveryTimeId = homeController.modeId == 1 ? "1" : "2";
-    cart.modeId = homeController.modeId.toString();
+    cart.deliveryTimeId = cart.modeId;
     cart.menuId = homeController.menuMode;
     cart.serviceId = isCheck ? "1" : "2";
     cart.id = "";

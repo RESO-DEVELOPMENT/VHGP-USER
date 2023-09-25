@@ -18,7 +18,9 @@ class CategoryTab extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 8.0),
       child: SizedBox(
-        height: categories.length < 3 ? 80 : 220,
+        height: categories.length < 3
+            ? 100
+            : MediaQuery.of(context).size.height * 0.35,
         width: MediaQuery.of(context).size.width,
         child: Center(
           child: GridView(
