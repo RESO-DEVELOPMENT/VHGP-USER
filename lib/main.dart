@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
               brightness: Brightness.light,
               fontFamily: GoogleFonts.inter().fontFamily,
               colorSchemeSeed: Colors.orangeAccent),
-          initialRoute: Routes.login,
+          initialRoute: Routes.demo,
           getPages: RouterGenerator.pages,
         );
       },
