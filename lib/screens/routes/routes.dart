@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:vinhome_user/screens/address_screen.dart';
-import 'package:vinhome_user/screens/authen/login_otp.dart';
 import 'package:vinhome_user/screens/create_address_screen.dart';
 import 'package:vinhome_user/screens/authen/login_screen.dart';
 import 'package:vinhome_user/screens/cart_screen.dart';
@@ -15,7 +14,6 @@ import 'package:vinhome_user/screens/store_screen.dart';
 import 'package:vinhome_user/screens/tab_screen.dart';
 
 import '../../controllers/bindings/bindings.dart';
-import '../authen/login_phone.dart';
 import '../change_password.dart';
 import '../filter_week_mode3.dart';
 import '../register_screen.dart';
@@ -50,16 +48,6 @@ class RouterGenerator {
       page: () => const LoginScreen(),
       binding: Binding(),
     ),
-    GetPage(
-      name: Routes.loginPhone,
-      page: () => LoginPhoneScreen(),
-      binding: Binding(),
-    ),
-    // GetPage(
-    //   name: Routes.phoneOtp,
-    //   page: () => OTPScreen(phone),
-    //   binding: Binding(),
-    // ),
     GetPage(
       name: Routes.home,
       page: () => HomeScreen(),
