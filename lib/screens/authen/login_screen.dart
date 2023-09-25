@@ -81,6 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
               obscureText: isPassword,
               decoration: InputDecoration(
+                  labelText: "user",
                   focusedBorder: UnderlineInputBorder(
                       borderSide: const BorderSide(
                         style: BorderStyle.none,

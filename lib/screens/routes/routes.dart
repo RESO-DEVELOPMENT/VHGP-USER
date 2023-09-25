@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import 'package:vinhome_user/screens/address_screen.dart';
+
+import 'package:vinhome_user/screens/authen/demo.dart';
 import 'package:vinhome_user/screens/create_address_screen.dart';
 import 'package:vinhome_user/screens/authen/login_screen.dart';
 import 'package:vinhome_user/screens/cart_screen.dart';
@@ -12,6 +14,7 @@ import 'package:vinhome_user/screens/product_detail_screen.dart';
 import 'package:vinhome_user/screens/products_category.dart';
 import 'package:vinhome_user/screens/store_screen.dart';
 import 'package:vinhome_user/screens/tab_screen.dart';
+import 'package:vinhome_user/screens/Getstarted/splash_sreen.dart';
 
 import '../../controllers/bindings/bindings.dart';
 import '../change_password.dart';
@@ -19,10 +22,11 @@ import '../filter_week_mode3.dart';
 import '../register_screen.dart';
 
 class Routes {
+  static const demo = "/";
   static const langding = "/";
   static const login = "/login";
-  static const loginPhone = "/login-phone";
-  static const phoneOtp = "/phone-otp";
+  static const started = "/splash_sreen";
+  static const loginOTP = "/loginOTP";
   static const home = "/home";
   static const tabScreen = "/tabScreen";
   static const categoryDetail = "/categoryDetail";
@@ -44,8 +48,18 @@ class Routes {
 class RouterGenerator {
   static final pages = [
     GetPage(
+      name: Routes.demo,
+      page: () => demo(),
+      binding: Binding(),
+    ),
+    GetPage(
       name: Routes.login,
       page: () => const LoginScreen(),
+      binding: Binding(),
+    ),
+    GetPage(
+      name: Routes.started,
+      page: () => const SplashSreen(),
       binding: Binding(),
     ),
     GetPage(
