@@ -63,7 +63,7 @@ dependencies:
   firebase_remote_config: ^4.2.5
   firebase_analytics: ^10.4.5
   firebase_auth: ^4.9.0
-  intl_phone_field: ^3.2  .0
+  intl_phone_field: ^3.2.0
   pin_code_fields: ^8.0.1
   
 dev_dependencies:
